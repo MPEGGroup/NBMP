@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "ISO/IEC 23090-8:2020 Network Based Media Processing schema-Function Description",
+    "type": "object",
+    "required": [ 
+        "general", "input", "output" 
+    ],
+    "properties": {
+        "scheme": {"$ref": "nbmp-schema-definitions.json/scheme" },
+        "general": {"$ref": "nbmp-schema-definitions.json/general" },
+        "repository": {"$ref": "nbmp-schema-definitions.json/repository" },
+        "input": {"$ref": "nbmp-schema-definitions.json/input" },
+        "output": {"$ref": "nbmp-schema-definitions.json/output" },
+        "processing": {"$ref": "nbmp-schema-definitions.json/processing" },
+        "requirements": {"$ref": "nbmp-schema-definitions.json/requirements" },
+        "configuration": {"$ref": "nbmp-schema-definitions.json/configuration" },
+        "client-assistant": {"$ref": "nbmp-schema-definitions.json/client-assistant" },
+        "assertion": {"$ref": "nbmp-schema-definitions.json/assertion" },
+        "notification": {"$ref": "nbmp-schema-definitions.json/notification" },
+        "monitoring": {"$ref": "nbmp-schema-definitions.json/monitoring" },
+        "group": {"$ref": "nbmp-schema-definitions.json/group" },
+        "security": {"$ref": "nbmp-schema-definitions.json/security" }
+    }
+}
