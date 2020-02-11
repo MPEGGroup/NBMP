@@ -12,13 +12,13 @@
         "input": {"$ref": "nbmp-schema-definitions.json/input" },
         "output": {"$ref": "nbmp-schema-definitions.json/output" },
         "processing": {"$ref": "nbmp-schema-definitions.json/processing" },
-        "requirements": {"$ref": "nbmp-schema-definitions.json/requirements" },
+        "requirement": {"$ref": "nbmp-schema-definitions.json/requirement" },
         "configuration": {"$ref": "nbmp-schema-definitions.json/configuration" },
         "client-assistant": {"$ref": "nbmp-schema-definitions.json/client-assistant" },
         "assertion": {"$ref": "nbmp-schema-definitions.json/assertion" },
+        "reporting": {"$ref": "nbmp-schema-definitions.json/reporting" },
         "notification": {"$ref": "nbmp-schema-definitions.json/notification" },
         "monitoring": {"$ref": "nbmp-schema-definitions.json/monitoring" },
-        "group": {"$ref": "nbmp-schema-definitions.json/group" },
         "security": {"$ref": "nbmp-schema-definitions.json/security" }
     }
 }
