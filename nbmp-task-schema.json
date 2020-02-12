@@ -11,7 +11,7 @@
         "input": {"$ref": "nbmp-schema-definitions.json/input" },
         "output": {"$ref": "nbmp-schema-definitions.json/output" },
         "processing": {"$ref": "nbmp-schema-definitions.json/processing" },
-        "requirements": {"$ref": "nbmp-schema-definitions.json/requirements" },
+        "requirement": {"$ref": "nbmp-schema-definitions.json/requirement" },
         "configuration": {"$ref": "nbmp-schema-definitions.json/configuration" },
         "startup-delay": {"$ref": "nbmp-schema-definitions.json/startup-delay" },
         "client-assistant": {"$ref": "nbmp-schema-definitions.json/client-assistant" },
