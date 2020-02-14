@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
   "title": "ISO/IEC 23090-8:2020 Network Based Media Processing schema-definitions",
   "scheme": { 
     "title": "Scheme Descriptor Schema",
@@ -9,7 +9,8 @@
     ],
     "properties": {
       "uri": {
-        "type": "string"
+        "type": "string",
+        "format":"uri"
       }
     }
   },
@@ -18,8 +19,7 @@
     "type": "object",
     "required": [
         "id", "name", "description",
-        "mpeg-compatibility",
-        "input-ports","output-ports"
+        "input-ports","output-ports", "state"
         ],  
     "properties": {
         "id": {
@@ -32,35 +32,40 @@
           "type": "string"
         },
         "rank": {
-          "type": "number"
+          "type": "integer",
+          "minimum": 0
         },
         "mpeg-compatibility": {
-          "type": "string"
+          "type": "string",
+          "format": "uri",
+          "pattenrProperties":{
+            "^urn:mpeg:mpegi:nbmp:v": {"type" : "string"}
+          },
+          "additionalProperties": "false"
         },
         "published-time": {
-          "type": "string"
-        },
-        "repository-location": {
-          "type": "string"
+          "type": "string",
+          "format": "date-time"
         },
         "priority": {
           "type": "number"
         },
-        "execution-time": {
-          "type": "string"
-        },
         "input-ports": {
           "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "object",
+            "required": ["port-name", "bind"],
             "properties": {
-              "name": {
+              "port-name": {
                 "type": "string"
               },
               "bind": {
                 "type": "object",
+                "required": ["stream_id", "name"],
                 "properties": {
-                  "id": {
+                  "stream-id": {
                     "type": "string"
                   },
                   "name": {
@@ -68,6 +73,8 @@
                   },
                   "keywords": {
                     "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
                     "items": {
                       "type": "string"
                     }
@@ -79,16 +86,20 @@
         },
         "output-ports": {
           "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "object",
+            "required": ["port-name", "bind"],
             "properties": {
-              "name": {
+              "port-name": {
                 "type": "string"
               },
               "bind": {
                 "type": "object",
+                "required": ["stream_id", "name"],
                 "properties": {
-                  "id": {
+                  "stream-id": {
                     "type": "string"
                   },
                   "name": {
@@ -96,6 +107,8 @@
                   },
                   "keywords": {
                     "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
                     "items": {
                       "type": "string"
                     }
@@ -106,7 +119,8 @@
           }
         },    
         "is-group": {
-        "type": "boolean"
+        "type": "boolean",
+        "default": false
         },
         "state": {
         "type": "string"
@@ -116,98 +130,112 @@
   "input" : {
       "title": "Input Descriptor Schema",
       "type": "object",
+      "required": ["media-parameters", "metadata-parameters"],
       "properties": {
-          "media-parameters": {
-              "type": "array",
-              "items": {
-                  "type": "object",
-                  "required": [
-                      "stream-id", "name", "keywords", "mime-type", "data-type", "protocol","caching-server-url"
-                  ],
-                  "properties": {
-                      "stream-id": {
-                          "type": "string"
-                      },
-                      "name": {
-                          "type": "string"
-                      },
-                      "keywords": {
-                          "type": "array",
-                          "item": {
-                              "type": "string"
-                          }
-                      },
-                      "mime-type": {
-                          "type": "string"
-                      },
-                      "video-format": {
-                          "type": "string"
-                      },
-                      "audio-format": {
-                        "type": "string"
-                      },
-                      "image-type": {
-                      "type": "string"
-                      },
-                      "protocol" : {
-                          "type": "string"
-                      },
-                      "throughput": {
-                          "type": "number"
-                      },
-                      "buffersize": {
-                          "type": "number"
-                      },
-                      "caching-server-url": {
-                          "type": "string"    
-                      }
-                  }
+        "media-parameters": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "stream-id", "name", "keywords", "mime-type", "data-type", "protocol","caching-server-url"
+            ],
+            "properties": {
+              "stream-id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "keywords": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "item": {
+                  "type": "string"
+                }
+              },
+              "mime-type": {
+                "type": "string"
+              },
+              "video-format": {
+                "type": "string"
+              },
+              "audio-format": {
+                "type": "string"
+              },
+              "image-type": {
+                "type": "string"
+              },
+              "protocol" : {
+                "type": "string"
+              },
+              "throughput": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "buffersize": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "caching-server-url": {
+                "type": "string"    
               }
+            }
+          }
           },
           "metadata-parameters": {
-              "type": "array",
-              "items": {
-                  "type": "object",
-                  "required": [
-                      "stream-id", "name", "keywords", "mime-type", "codec-type", "protocol"
-                  ],
-                  "properties": {
-                      "stream-id": {
-                          "type": "string"
-                      },
-                      "name": {
-                          "type": "string"
-                      },
-                      "keywords": {
-                          "type": "array",
-                          "item": {
-                              "type": "string"
-                          }
-                      },
-                      "mime-type": {
-                          "type": "string"
-                      },
-                      "codec-type": {
-                          "type": "string"
-                      },
-                      "protocol": {
-                          "type": "string"
-                      },
-                      "max-size": {
-                          "type": "number"
-                      },
-                      "min-interval": {
-                          "type": "number"
-                      },
-                      "caching-server-url": {
-                          "type": "string"    
-                      },
-                      "schema-uri": {
-                        "type": "string"    
-                    }
-                }
+            "type": "array",
+            "items": {
+              "type": "object",
+              "minItems": 1,
+              "uniqueItems": true,
+              "required": [
+                "stream-id", "name", "keywords", "mime-type", "codec-type", "protocol"
+              ],
+              "properties": {
+                "stream-id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "keywords": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "item": {
+                      "type": "string"
+                  }
+                },
+                "mime-type": {
+                  "type": "string"
+                },
+                "codec-type": {
+                  "type": "string"
+                },
+                "protocol": {
+                  "type": "string"
+                },
+                "max-size": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "min-interval": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "caching-server-url": {
+                  "type": "string"    
+                },
+                "scheme-uri": {
+                  "type": "string",
+                  "format": "uri"    
               }
+            }
           }
+        }
       }
   },
   "output" : {
