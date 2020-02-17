@@ -134,7 +134,7 @@
     "properties": {
       "media-parameters": {
         "type": "array",
-        "minItems": 1,
+        "minItems": 0,
         "uniqueItems": true,
         "items": {
           "type": "object",
@@ -152,7 +152,7 @@
               "type": "array",
               "minItems": 1,
               "uniqueItems": true,
-              "item": {
+              "items": {
                 "type": "string"
               }
             },
@@ -190,7 +190,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "minItems": 1,
+            "minItems": 0,
             "uniqueItems": true,
             "required": [
               "stream-id", "name", "keywords", "mime-type", "protocol"
@@ -206,7 +206,7 @@
                 "type": "array",
                 "minItems": 1,
                 "uniqueItems": true,
-                "item": {
+                "items": {
                     "type": "string"
                 }
               },
@@ -246,7 +246,7 @@
     "properties": {
       "media-parameters": {
         "type": "array",
-        "minItems": 1,
+        "minItems": 0,
         "uniqueItems": true,
         "items": {
           "type": "object",
@@ -264,7 +264,7 @@
               "type": "array",
               "minItems": 1,
               "uniqueItems": true,
-              "item": {
+              "items": {
                 "type": "string"
               }
             },
@@ -303,7 +303,7 @@
       },
       "metadata-parameters": {
         "type": "array",
-        "minItems": 1,
+        "minItems": 0,
         "uniqueItems": true,
         "items": {
           "type": "object",
@@ -321,7 +321,7 @@
               "type": "array",
               "minItems": 1,
               "uniqueItems": true,
-              "item": {
+              "items": {
                 "type": "string"
               }
             },
@@ -365,6 +365,8 @@
     "properties": {
       "keywords": {
         "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
         "items": [
           {
             "type": "string"
@@ -373,6 +375,8 @@
       },
       "image": {
         "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
         "items": [
           {
             "type": "string"
@@ -448,6 +452,7 @@
       },
       "function-restrictions": {
         "type": "array",
+        "uniqueItems": true,
         "items": [
           {
             "type": "object",
@@ -586,6 +591,7 @@
     "properties": {
       "parameters": {
           "type": "array",
+          "uniqueItems": true,
           "items": {
               "type": "object",
               "required": [
@@ -617,7 +623,11 @@
                     "type": "object",
                     "properties": {
                       "enum-values": {
-                        "type": "array"
+                        "type": "array",
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string"
+                        }
                       },
                       "int-range": {
                         "type": "object",
@@ -637,13 +647,13 @@
                           "type": "object",
                           "properties": {
                             "min-value": {
-                              "type": "float"
+                              "type": "number"
                             },
                             "max-value": {
-                              "type": "float"
+                              "type": "nmber"
                             },
                             "increment": {
-                               "type": "float" 
+                               "type": "number" 
                             }
                           }
                         }
@@ -651,11 +661,19 @@
                   },
                   "conditions": {
                     "type": "array",
-                    "items": "integer"
+                    "uniqueItems": true,
+                    "description": "List of configurarion ids",
+                    "items": {
+                      "type": "integer"
+                    }
                   },
                   "exclusion": {
                       "type": "array",
-                      "items": "integer"
+                      "description": "List of configurarion ids",
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "integer"
+                      }
                   }
               }
           }  
@@ -730,6 +748,7 @@
     "title": "Variables Descriptor Schema",
     "properties" : {
         "type": "array",
+        "uniqueItems": true,
         "items" : {
             "properties": {
                 "name": "string",
@@ -749,7 +768,8 @@
                 "url": "string",
                 "children": {
                     "type" : "array",
-                    "item" : { "$ref": "#/variables" },
+                    "uniqueItems": true,
+                    "items" : { "$ref": "#/variables" },
                     "default" : []
                 }
             }
@@ -765,25 +785,29 @@
     "properties": {
       "event": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
       "variable": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
       "system-events": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
       "system-variables": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       }
@@ -813,7 +837,8 @@
           },
           "assertion": {
               "type": "array",
-              "item": {
+              "uniqueItems": true,
+              "items": {
                 "type": "object",
                 "required": [
                   "name", "value-predicate"
@@ -864,25 +889,29 @@
     "properties": {
       "events": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
       "variables": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
       "system-events": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
       "system-variables": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
@@ -915,25 +944,29 @@
     "properties": {
       "event": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
       "variable": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
       "system-events": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
       "system-variables": {
         "type": "array",
-        "item": {
+        "uniqueItems": true,
+        "items": {
           "type": "object"
         }
       },
@@ -948,7 +981,8 @@
       },
       "urls": {
         "type": "array",
-        "item": {"type": "string"}
+        "uniqueItems": true,
+        "items": {"type": "string"}
       }
     }
   },
@@ -984,15 +1018,18 @@
       },
       "unsupported": {
           "type": "array",
-          "item": {"type": "string"}
+          "uniqueItems": true,
+          "items": {"type": "string"}
       },
       "failed": {
           "type": "array",
-          "item": {"type": "string"}
+          "uniqueItems": true,
+          "items": {"type": "string"}
       },
       "partial": {
           "type": "array",
-          "item": {"type": "string"}
+          "uniqueItems": true,
+          "items": {"type": "string"}
       }
     }
   },
@@ -1013,7 +1050,8 @@
           },
           "location": {
             "type": "array",
-            "item": {
+            "uniqueItems": true,
+            "items": {
               "type": "object",
               "properties": {
                 "url": {
