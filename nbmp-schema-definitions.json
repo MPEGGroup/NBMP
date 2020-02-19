@@ -573,18 +573,6 @@
         "type": "object",
         "minProperties" : 1,
         "properties": {
-          "processor-requirement": {
-            "type": "integer",
-            "minimum": 0
-          },
-          "cpu-cores": {
-            "type": "integer",
-            "minimum": 0
-          },
-          "gpu": {
-            "type": "integer",
-            "minimum": 0
-          },
           "vcpu": {
             "type": "integer",
             "minimum": 0
@@ -906,7 +894,7 @@
     "properties": {
       "min-priority":{
         "type": "integer",
-        "minimum": 0,
+        "minimum": 0
       },
       "min-priority-action":{
         "type": "string"
@@ -981,22 +969,11 @@
     "required": [ "reporting-type", "reporting-interval", "report-start-time", "url", "delivery-method"
     ],
     "properties": {
-      "events": {
-        "type": "array",
-        "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
-      },
-      "variables": {
-        "type": "array",
-        "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
-      },
+      "event": { "$ref": "#/events" },
+      "variable": { "$ref": "#/variables" },
       "system-events": {
         "type": "array",
+        "minItems": 1,
         "uniqueItems": true,
         "items": {
           "type": "object"
@@ -1004,6 +981,7 @@
       },
       "system-variables": {
         "type": "array",
+        "minItems": 1,
         "uniqueItems": true,
         "items": {
           "type": "object"
@@ -1013,16 +991,20 @@
         "type": "string"
       },
       "reporting-interval": {
-        "type": "integer"
+        "type": "integer",
+        "minimum": 0
       },
       "report-start-time": {
-        "type": "string"
+        "type": "string",
+        "format": "date-time"
       },
       "url": {
-        "type": "string"
+        "type": "string",
+        "format": "url"
       },
       "delivery-method": {
-        "type": "string"
+        "type": "string",
+        "default": "HTTP POST"
       }
     }
   },
@@ -1030,28 +1012,14 @@
     "title": "Notifications Descriptor Schema",
     "type": "object",
     "required": [
-      "notification-time",
-      "severity-level",
-      "notification-type",
-      "urls"
+      "notification-time", "severity-level", "notification-type","urls"
     ],
     "properties": {
-      "event": {
-        "type": "array",
-        "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
-      },
-      "variable": {
-        "type": "array",
-        "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
-      },
+      "event": { "$ref": "#/events" },
+      "variable": { "$ref": "#/variables" },
       "system-events": {
         "type": "array",
+        "minItems": 1,
         "uniqueItems": true,
         "items": {
           "type": "object"
@@ -1059,41 +1027,56 @@
       },
       "system-variables": {
         "type": "array",
+        "minItems": 1,
         "uniqueItems": true,
         "items": {
           "type": "object"
         }
       },
-      "notification-type": {
-        "type": "string"
-      },
       "notification-time": {
-        "type": "string"
+        "type": "string",
+        "format": "date-time"
       },
       "severity-level": {
         "type": "string"
       },
+      "notification-type": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum": ["congestion", "application", "system"]
+        } 
+      },
       "urls": {
         "type": "array",
+        "minItems": 1,
         "uniqueItems": true,
-        "items": {"type": "string"}
+        "items": {
+          "type": "string",
+          "format": "url"
+        }
+      },
+      "notification-interval": {
+        "type": "integer",
+        "minimum": 0,
+        "default": 0
       }
     }
   },
   "request": {
     "title": "Request Descriptor Schema",
     "type": "object",
-    "required": [
-      "request-id",
-      "priority",
-      "task-id"
-    ],
+    "required": ["request-id", "task-id"],
     "properties": {
       "request-id": {
-        "type": "string"
+        "type": "integer",
+        "minimum": 0
       },
       "priority": {
-        "type": "number"
+        "type": "integer",
+        "minimum": 0 
       }, 
       "task-id": {
         "type": "string"
@@ -1103,119 +1086,108 @@
   "acknowledge": {
     "title": "Acknowledge Descriptor Schema",
     "type": "object",
-    "required": [
-      "status"
-    ],
+    "required": ["status"],
     "properties": {
       "status": {
-        "type": "string"
+        "type": "string",
+        "enum": ["fulfilled", "failed", "not-supported", "partially-fulfilled"]
       },
       "unsupported": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {"type": "string"}
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"type": "string"}
       },
       "failed": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {"type": "string"}
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"type": "string"}
       },
       "partial": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {"type": "string"}
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"type": "string"}
       }
     }
   },
-  
   "repository": {
-      "title": "Repository Descriptor schema",
-      "type": "object",
-      "required": [
-          "mode",
-          "location",
-          "url",
-          "name",
-          "description"
-      ],
-      "properties": {
-          "mode": {
-          "type": "string"
-          },
-          "location": {
-            "type": "array",
-            "uniqueItems": true,
-            "items": {
-              "type": "object",
-              "properties": {
-                "url": {
-                  "type": "string"
-                  },
-                  "name": {
-                  "type": "string"
-                  },
-                  "description": {
-                  "type": "string"
-                  }
-              }
+    "title": "Repository Descriptor schema",
+    "type": "object",
+    "required": ["location"],
+    "properties": {
+      "mode": {
+        "type": "string",
+        "enum": ["strict", "preferred", "available"],
+        "default": "available"
+      },
+      "location": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "object",
+          "required": ["url", "name", "description"],
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "url"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
             }
           }
+        }
       }
+    }
   },
   "security": {
-      "title": "Security Descriptor Schema",
-      "type": "object",
-      "required": [
-          "name", " authentication-method "
-      ],
-      "properties": {
-          "name": {
-          "type": "string"
-          },
-          "scope": {
-          "type": "string"
-          },
-          "authentication-method": {
-          "type": "string"
-          },
-          "authority-url": {
-          "type": "string"
-          },
-          "certificate": {
-              "type": "string"
-          },
-          "auth-token": {
-          "type": "string"
-          },
-          "client-grants": {
-          "type": "string"
-          },
-          "auth-token-expires": {
-          "type": "string"
-          },
-          "auth-token-renew": {
-          "type": "string"
-          },
-          "auth-token-rotation": {
-          "type": "boolean"
-          }
+    "title": "Security Descriptor Schema",
+    "type": "object",
+    "required": ["name", "authentication-method"],
+    "properties": {
+      "name": {"type": "string"},
+      "scope": { "type": "string"},
+      "authentication-method": {"type": "string"},
+      "authority-url": {
+        "type": "string",
+        "format": "url"
+      },
+      "certificate": {"type": "string"},
+      "auth-token": {"type": "string"},
+      "client-grants": {"type": "string"},
+      "auth-token-expires": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "auth-token-renew": {"type ": "string"},
+      "auth-token-rotation": {
+        "type": "boolean",
+        "default": false
       }
+    }
   },
   "step": {
-    "title": "stateless-operation Descriptor Schema",
+    "title": "Step Descriptor Schema",
     "type": "object",
-    "required": [
-      "direct"
-    ],
+    "minProperties": 1,
     "properties": {
       "direct": {
-        "type": "string"
+        "type": "string",
+        "enum":["stream", "stateful", "stateless"],
+        "default": "stream"
       },
       "segment-duration": {
-        "type": "number"
+        "type": "integer",
+        "minimum": 0
       },
       "operating-units": {
-        "type": "number"
+        "type": "integer",
+        "minimum": 0
       }
     }
   }
