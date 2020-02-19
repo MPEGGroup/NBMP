@@ -360,34 +360,74 @@
     "type": "object",
     "required": [
       "keywords",
-      "url"
+      "image"
     ],
     "properties": {
       "keywords": {
         "type": "array",
         "minItems": 1,
         "uniqueItems": true,
-        "items": [
-          {
-            "type": "string"
-          }
-        ]
+        "items": {
+          "type": "string"
+        }
       },
       "image": {
         "type": "array",
         "minItems": 1,
         "uniqueItems": true,
-        "items": [
-          {
-            "type": "string"
+        "items": {
+          "type": "object",
+          "required" : [ "url"],
+          "properties": {
+            "is-dynamic": { 
+              "type": "boolean",
+              "default": "false"
+            },
+            "url": {
+              "type": "string",
+              "format": "url"
+            },
+            "static-image-info":{
+              "type": "object",
+              "required": [
+                "os", "version", "architecture", "environment"
+              ],
+              "properties": {
+                "os":{ "type": "string"},
+                "version":{ "type": "string"},
+                "architecture":{ "type": "string"},
+                "environment":{ "type": "string"},
+                "patch-url":{ 
+                  "type": "string",
+                  "format": "url"
+                },
+                "patch-script":{ 
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            },
+            "dynamic-image-info":{
+              "type": "object",
+              "required": ["scheme", "information"],
+              "properties": {
+                "pscheme":{ 
+                  "type": "string",
+                  "format": "url"
+                },
+                "information":{ "type": "object"}
+              }
+            }
           }
-        ]
+        }
       },
       "start-time": {
-        "type": "string"
+        "type": "string",
+        "format": "date-time"
       },
       "connection-map": {
         "type": "array",
+        "minItems": 1,
         "uniqueItems": true,
         "items": [
           {
@@ -443,6 +483,10 @@
               "flowcontrol-parameters": {
                 "type": "object"
               },
+              "co-located": {
+                "type": "boolean",
+                "default": "false"
+              },
               "other-parameters": {
                 "type": "object"
               }
@@ -491,94 +535,134 @@
     "title": "Requirements Descriptor Schema",
     "type": "object",
     "properties": {
-      "qos-requirements": {
-        "type": "object"
-      },
       "flowcontrol-requirements": {
         "type": "object",
+        "minProperties" : 1,
         "properties": {
           "typical-delay": {
-          "type": "number"
+          "type": "integer",
+          "minimum": 0
           },
           "min-delay": {
-          "type": "number"
+            "type": "integer",
+            "minimum": 0
           },
           "max-delay": {
-          "type": "number"
+            "type": "integer",
+            "minimum": 0
+          },
+          "typical-throughput": {
+            "type": "integer",
+            "minimum": 0
           },
           "min-throughput": {
-          "type": "number"
+            "type": "integer",
+            "minimum": 0
           },
           "max-throughput": {
-          "type": "number"
+            "type": "integer",
+            "minimum": 0
           },
           "averaging-window": {
-          "type": "number"
+            "type": "integer",
+            "minimum": 0
           }
         }
       },
       "hardware-requirements": {
         "type": "object",
+        "minProperties" : 1,
         "properties": {
+          "processor-requirement": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "cpu-cores": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gpu": {
+            "type": "integer",
+            "minimum": 0
+          },
           "vcpu": {
-          "type": "number"
+            "type": "integer",
+            "minimum": 0
           },
           "vgpu": {
-          "type": "number"
+            "type": "integer",
+            "minimum": 0
           },
           "ram": {
-          "type": "number"
+            "type": "integer",
+            "minimum": 0
           },
           "disk": {
-          "type": "number"
+            "type": "integer",
+            "minimum": 0
           },
           "placement": {
-          "type": "string"
+            "type": "string",
+            "pattern": "(^[a-z]{2}$)|(^[a-z]{2}-.*)"
           }
         }
       },
       "security-requirements": {
         "type": "object",
+        "minProperties" : 1,
         "properties": {
           "tls": {
-            "type": "boolean"
-            },
-            "ipsec": {
-            "type": "boolean"
-            },
-            "cenc": {
-              "type": "boolean"
-            }
+            "type": "boolean",
+            "default": "false"
+          },
+          "ipsec": {
+            "type": "boolean",
+            "default": "false"
+          },
+          "cenc": {
+              "type": "boolean",
+              "default": "false"
+          }
         }
       },
       "workflow-task-requirements": {
         "type": "object",
+        "minProperties" : 1,
         "properties": {
+          "execution-mode": {
+            "type": "string",
+            "default": "streaming"
+          },
           "function-fusible": {
-          "type": "boolean"
+            "type": "boolean",
+            "default": "false"
           },
           "function-enhancable": {
-          "type": "boolean"
-          },
-          "execution-mode": {
-            "type": "string"
+            "type": "boolean",
+            "default": "false"
           }
         }
       },
       "resource-estimators": {
         "type": "object",
+        "required": ["default-values"],
         "properties": {
           "default-values": {
-          "type": "object"
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "name" : {"type": "string"},
+              "value": {"type": "string"}
+            }
           },
           "computational-estimator": {
-          "type": "string"
+            "type": "string"
           },
           "memory-estimator": {
-          "type": "string"
+            "type": "string"
           },
           "bandwidth-estimator": {
-          "type": "string"
+            "type": "string"
           }
         }
       }
@@ -590,93 +674,93 @@
     "required": [ "parameters" ],
     "properties": {
       "parameters": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "type": "object",
+          "required": [
+            "name", "id", "type"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "simple", "enum", "range", "class"
+              ]
+            },
+            "datatype": {
+              "type": "string",
+              "enum": [
+                "boolean", "interger", "unsigned-integer", "float", "string", "object", "other"
+              ]
+            },
+            "default": {
+              "type": "object"
+            },
+            "restrictions": {
               "type": "object",
-              "required": [
-                  "name", "id", "type"
-              ],
               "properties": {
-                  "name": {
+                "enum-values": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
                     "type": "string"
-                  },
-                  "id": {
-                    "type": "integer"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "simple", "enum", "range", "class"
-                    ]
-                  },
-                  "datatype": {
-                    "type": "string",
-                    "enum": [
-                      "boolean", "interger", "unsigned-integer", "float", "string", "object", "other"
-                    ]
-                  },
-                  "default": {
-                      "type": "object"
-                  },
-                  "restrictions": {
-                    "type": "object",
-                    "properties": {
-                      "enum-values": {
-                        "type": "array",
-                        "uniqueItems": true,
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "int-range": {
-                        "type": "object",
-                        "properties": {
-                          "min-value": {
-                            "type": "integer"
-                          },
-                          "max-value": {
-                            "type": "integer"
-                          },
-                          "increment": {
-                             "type": "integer" 
-                          }
-                        }
-                      },
-                      "float-range": {
-                          "type": "object",
-                          "properties": {
-                            "min-value": {
-                              "type": "number"
-                            },
-                            "max-value": {
-                              "type": "nmber"
-                            },
-                            "increment": {
-                               "type": "number" 
-                            }
-                          }
-                        }
-                    }
-                  },
-                  "conditions": {
-                    "type": "array",
-                    "uniqueItems": true,
-                    "description": "List of configurarion ids",
-                    "items": {
-                      "type": "integer"
-                    }
-                  },
-                  "exclusion": {
-                      "type": "array",
-                      "description": "List of configurarion ids",
-                      "uniqueItems": true,
-                      "items": {
-                        "type": "integer"
-                      }
                   }
+                },
+                "int-range": {
+                  "type": "object",
+                  "properties": {
+                    "min-value": {
+                      "type": "integer"
+                    },
+                    "max-value": {
+                      "type": "integer"
+                    },
+                    "increment": {
+                      "type": "integer" 
+                    }
+                  }
+                },
+                "float-range": {
+                  "type": "object",
+                  "properties": {
+                    "min-value": {
+                      "type": "number"
+                    },
+                    "max-value": {
+                      "type": "nmber"
+                    },
+                    "increment": {
+                      "type": "number" 
+                    }
+                  }
+                }
               }
-          }  
+            },
+            "conditions": {
+              "type": "array",
+              "uniqueItems": true,
+              "description": "List of configurarion ids",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "exclusion": {
+              "type": "array",
+              "description": "List of configurarion ids",
+              "uniqueItems": true,
+              "items": {
+                "type": "integer"
+              }
+            }
+          }
+        }  
       }
     }   
   },
@@ -686,7 +770,8 @@
     "required": ["startup-delay" ],
     "properties": {
       "startup-delay": {
-        "type": "integer"
+        "type": "integer",
+        "minimum": 0
       }
     }
   },
@@ -717,88 +802,86 @@
     ],
     "properties": {
       "failover-mode": {
-        "type": "string"
+        "type": "string",
+        "enum:": ["restart-immediately", "restart-with-delay", "continue-with-last-good-state", "execute-backup-deployment", "exist"]
       },
       "failover-delay": {
-        "type": "integer"
+        "type": "integer",
+        "minimum": 0
       },
       "backup-deployment-url": {
-        "type": "string"
+        "type": "string",
+        "format": "url"
       },
       "persistence-url": {
-        "type": "string"
+        "type": "string",
+        "format": "url"
       },
       "persistence-interval": {
-        "type": "integer"
+        "type": "integer",
+        "minimum": 0
       }
     }
   }, 
   "events": {
     "title": "Events Descriptor Schema",
     "type": "array",
+    "minItems": 1,
+    "uniqueItems": true,
     "items" : {
         "properties": {
-            "name": "string",
-            "definition": "string",
-            "url": "string"
+          "name": {"type": "string"},
+          "definition": {"type": "string"},
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
         }
     }
   },
   "variables": {
     "title": "Variables Descriptor Schema",
     "properties" : {
-        "type": "array",
-        "uniqueItems": true,
-        "items" : {
-            "properties": {
-                "name": "string",
-                "definition": "string",
-                "unit": "string",
-                "var-type": {
-                    "type" : "string",
-                    "enum" : ["string", "interger", "float", "boolean"]         
-                },
-                "value": "string",
-                "range": {
-                    "properties":{
-                        "min" :"integer",
-                        "max": "integer"
-                    }
-                },
-                "url": "string",
-                "children": {
-                    "type" : "array",
-                    "uniqueItems": true,
-                    "items" : { "$ref": "#/variables" },
-                    "default" : []
-                }
-            }
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items" : {
+        "required": ["name", "definition", "unit", "var-type", "value"],
+        "properties": {
+          "name": {"type": "string"},
+          "definition": {"type": "string"},
+          "unit": {"type": "string"},
+          "var-type": {
+            "type" : "string",
+            "enum" : ["string", "interger", "float", "boolean"]         
+          },
+          "value": {"type": "string"},
+          "min" :{"type": "integer"},
+          "max" :{"type": "integer"},
+          "url": {
+            "type": "string",
+            "format": "url"
+          },
+          "children": {
+            "type" : "array",
+            "uniqueItems": true,
+            "items" : { "$ref": "#/variables" },
+            "default" : []
+          }
         }
+      }
     }
   },
   "monitoring": { 
     "title": "Monitoring Descriptor Schema",
     "type": "object",
-    "required": [
-      "event", "variable", "system-events", "system-variables"
-    ],
-    "properties": {
-      "event": {
-        "type": "array",
-        "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
-      },
-      "variable": {
-        "type": "array",
-        "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
-      },
+    "minProperties": 1,
+    "properties": { 
+      "event": { "$ref": "#/events" },
+      "variable": { "$ref": "#/variables" },
       "system-events": {
         "type": "array",
+        "minItems": 1,
         "uniqueItems": true,
         "items": {
           "type": "object"
@@ -806,6 +889,7 @@
       },
       "system-variables": {
         "type": "array",
+        "minItems": 1,
         "uniqueItems": true,
         "items": {
           "type": "object"
@@ -814,72 +898,82 @@
     }
   },    
   "assertion": {
-      "title": "Assertion Descriptor Schema",
-      "type": "object",
-      "required": [
-          "min-priority", "min-priority-action", "assertion"
-      ],
-      "properties": {
-          "min-priority":{
-          "type": "integer"
-          },
-          "min-priority-action":{
-          "type": "string"
-          }, 
-          "support-verification": {
-          "type": "boolean"
-          },
-          "verification-acknowledgement": {
-          "type": "string"
-          },
-          "certificate": {
-          "type": "string"
-          },
-          "assertion": {
-              "type": "array",
-              "uniqueItems": true,
-              "items": {
-                "type": "object",
-                "required": [
-                  "name", "value-predicate"
-                ],
-                "properties": {
-                  "name" : {
-                    "type": "string"
-                    },
-                    "value-predicate": {
-                        "type": "object",
-                        "required": [
-                            "evaluation-condition", "check-value", "aggregation", "priority", "action"
-                        ],
-                        "properties": {
-                            "evaluation-condition": {
-                            "type": "string"
-                            },
-                            "check-value": {
-                            "type": "object"
-                            },
-                            "aggregation": {
-                            "type": "string"
-                            },
-                            "offset": {
-                            "type": "string"
-                            },
-                            "priority": {
-                            "type": "integer"
-                            },
-                            "action": {
-                            "type": "string"
-                            },
-                            "action-parameters": {
-                            "type": "object"
-                            }
-                        }
-                    }
+    "title": "Assertion Descriptor Schema",
+    "type": "object",
+    "required": [
+        "min-priority", "min-priority-action", "assertion"
+    ],
+    "properties": {
+      "min-priority":{
+        "type": "integer",
+        "minimum": 0,
+      },
+      "min-priority-action":{
+        "type": "string"
+      }, 
+      "support-verification": {
+        "type": "boolean",
+        "default": "false"
+      },
+      "verification-acknowledgement": {
+        "type": "string"
+      },
+      "certificate": {
+        "type": "string"
+      },
+      "assertion": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "object",
+          "required": [
+            "name", "value-predicate"
+          ],
+          "properties": {
+            "name" : {
+              "type": "string"
+              },
+            "value-predicate": {
+              "type": "object",
+              "required": [
+                "evaluation-condition", "check-value", "aggregation", "priority", "action"
+              ],
+              "properties": {
+                "evaluation-condition": {
+                  "type": "string",
+                  "enum": ["quality", "computational", "input", "output"]
+                },
+                "check-value": {
+                  "type": "object"
+                },
+                "aggregation": {
+                  "type": "string",
+                  "enum": ["sum", "min", "max", "avg"]
+                },
+                "offset": {
+                  "type": "string"
+                },
+                "priority": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "action": {
+                  "type": "string",
+                  "enum": ["rebuild", "restart", "wait"]
+                },
+                "action-parameters": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "item": { "type": "string"}
                 }
               }
+            }
           }
+        }
       }
+    }
   },
   "reporting": { 
     "title": "Reporting Descriptor Schema",
