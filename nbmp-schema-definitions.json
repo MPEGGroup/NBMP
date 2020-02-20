@@ -41,7 +41,7 @@
           "pattenrProperties":{
             "^urn:mpeg:mpegi:nbmp:v": {"type" : "string"}
           },
-          "additionalProperties": "false"
+          "additionalProperties": false
         },
         "published-time": {
           "type": "string",
@@ -381,7 +381,7 @@
           "properties": {
             "is-dynamic": { 
               "type": "boolean",
-              "default": "false"
+              "default": false
             },
             "url": {
               "type": "string",
@@ -485,7 +485,7 @@
               },
               "co-located": {
                 "type": "boolean",
-                "default": "false"
+                "default": false
               },
               "other-parameters": {
                 "type": "object"
@@ -601,15 +601,15 @@
         "properties": {
           "tls": {
             "type": "boolean",
-            "default": "false"
+            "default": false
           },
           "ipsec": {
             "type": "boolean",
-            "default": "false"
+            "default": false
           },
           "cenc": {
               "type": "boolean",
-              "default": "false"
+              "default": false
           }
         }
       },
@@ -623,11 +623,11 @@
           },
           "function-fusible": {
             "type": "boolean",
-            "default": "false"
+            "default": false
           },
           "function-enhancable": {
             "type": "boolean",
-            "default": "false"
+            "default": false
           }
         }
       },
@@ -722,7 +722,7 @@
                       "type": "number"
                     },
                     "max-value": {
-                      "type": "nmber"
+                      "type": "number"
                     },
                     "increment": {
                       "type": "number" 
@@ -772,7 +772,7 @@
       "properties": {
         "client-assistance-flag": {
           "type": "boolean",
-          "default": "false"
+          "default": false
         },
         "measurement-collection-list": {
           "type": "object"
@@ -901,7 +901,7 @@
       }, 
       "support-verification": {
         "type": "boolean",
-        "default": "false"
+        "default": false
       },
       "verification-acknowledgement": {
         "type": "string"
@@ -954,7 +954,7 @@
                   "type": "array",
                   "minItems": 1,
                   "uniqueItems": true,
-                  "item": { "type": "string"}
+                  "items": { "type": "string"}
                 }
               }
             }
