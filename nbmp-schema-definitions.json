@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft/2019-09/schema",
   "$id": "https://github.com/MPEGGroup/NBMP/blob/master/nbmp-schema-definitions.json",
   "$vocabularies": ["https://json-schema.org/draft/2019-09/vocab/validation", "https://json-schema.org/draft/2019-09/vocab/format"],
+  "$comment": "This schema defines the definitions part of ISO/IEC 23090-8-2020 Network Based Media Processing (NBMP) (https://www.iso.org/standard/77839.html)",
   "title": "ISO/IEC 23090-8:2020 Network Based Media Processing schema-definitions",
   "scheme": { 
     "title": "Scheme Descriptor Schema",
@@ -132,7 +133,10 @@
   "input" : {
     "title": "Input Descriptor Schema",
     "type": "object",
-    "required": ["media-parameters", "metadata-parameters"],
+    "oneOf":[
+      {"required": ["media-parameters"]},
+      {"required": ["metadata-parameters"]}
+    ],
     "properties": {
       "media-parameters": {
         "type": "array",
@@ -162,13 +166,13 @@
               "type": "string"
             },
             "video-format": {
-              "type": "string"
+              "$ref": "#/definitions/configuration/parameters"
             },
             "audio-format": {
-              "type": "string"
+              "$ref": "#/definitions/configuration/parameters"
             },
-            "image-type": {
-              "type": "string"
+            "image-format": {
+              "$ref": "#/definitions/configuration/parameters"
             },
             "protocol" : {
               "type": "string"
@@ -186,7 +190,6 @@
               "format": "uri"  
             }
           }
-        }
         },
         "metadata-parameters": {
           "type": "array",
@@ -194,9 +197,7 @@
             "type": "object",
             "minItems": 0,
             "uniqueItems": true,
-            "required": [
-              "stream-id", "name", "keywords", "mime-type", "protocol"
-            ],
+            "required": ["stream-id", "name", "keywords"],
             "properties": {
               "stream-id": {
                 "type": "string"
@@ -212,15 +213,6 @@
                     "type": "string"
                 }
               },
-              "mime-type": {
-                "type": "string"
-              },
-              "codec-type": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
               "max-size": {
                 "type": "integer",
                 "minimum": 0
@@ -231,11 +223,33 @@
               },
               "caching-server-url": {
                 "type": "string"    
+              }
+            },
+            "oneof":[
+              {
+                "required": ["mime-type", "protocol"],
+                "properties":{
+                  "mime-type": {
+                    "type": "string"
+                  },
+                  "codec-type": {
+                    "type": "string"
+                  },
+                  "protocol": {
+                    "type": "string"
+                  }
+                }   
               },
-              "scheme-uri": {
-                "type": "string",
-                "format": "uri"    
-            }
+              {
+                "required": ["scheme-uri"],
+                "properties":{
+                  "scheme-uri": {
+                    "type": "string",
+                    "format": "uri" 
+                  }
+                }
+              }
+            ]
           }
         }
       }
@@ -244,7 +258,10 @@
   "output" : {
     "title": "Output Descriptor Schema",
     "type": "object",
-    "required": ["media-parameters", "metadata-parameters"],
+    "oneOf":[
+      {"required": ["media-parameters"]},
+      {"required": ["metadata-parameters"]}
+    ],
     "properties": {
       "media-parameters": {
         "type": "array",
@@ -274,13 +291,13 @@
               "type": "string"
             },
             "video-format": {
-              "type": "string"
+              "$ref": "#/definitions/configuration/parameters"
             },
             "audio-format": {
-              "type": "string"
+              "$ref": "#/definitions/configuration/parameters"
             },
             "image-format": {
-              "type": "string"
+              "$ref": "#/definitions/configuration/parameters"
             },
             "codec-type": {
               "type": "string"
@@ -305,13 +322,11 @@
       },
       "metadata-parameters": {
         "type": "array",
-        "minItems": 0,
-        "uniqueItems": true,
         "items": {
           "type": "object",
-          "required": [
-            "stream-id", "name", "keywords", "mime-type", "codec-type", "protocol", "caching-server-url"
-          ],
+          "minItems": 0,
+          "uniqueItems": true,
+          "required": ["stream-id", "name", "keywords"],
           "properties": {
             "stream-id": {
               "type": "string"
@@ -324,17 +339,8 @@
               "minItems": 1,
               "uniqueItems": true,
               "items": {
-                "type": "string"
+                  "type": "string"
               }
-            },
-            "mime-type": {
-              "type": "string"
-            },
-            "codec-type": {
-              "type": "string"
-            },
-            "protocol" : {
-              "type": "string"
             },
             "max-size": {
               "type": "integer",
@@ -345,14 +351,34 @@
               "minimum": 0
             },
             "caching-server-url": {
-              "type": "string",
-              "format": "uri"     
-            },
-            "scheme-uri": {
-              "type": "string",
-              "format": "uri"    
+              "type": "string"    
             }
-          }
+          },
+          "oneof":[
+            {
+              "required": ["mime-type", "protocol"],
+              "properties":{
+                "mime-type": {
+                  "type": "string"
+                },
+                "codec-type": {
+                  "type": "string"
+                },
+                "protocol": {
+                  "type": "string"
+                }
+              }   
+            },
+            {
+              "required": ["scheme-uri"],
+              "properties":{
+                "scheme-uri": {
+                  "type": "string",
+                  "format": "uri" 
+                }
+              }
+            }
+          ]
         }
       }
     }
@@ -593,7 +619,7 @@
           },
           "placement": {
             "type": "string",
-            "pattern": "(^[a-z]{2}$)|(^[a-z]{2}-.*)"
+            "pattern": "(^[A-Z]{2}$)|(^[A-Z]{2}-.*)"
           }
         }
       },
