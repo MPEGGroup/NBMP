@@ -133,7 +133,7 @@
   "input" : {
     "title": "Input Descriptor Schema",
     "type": "object",
-    "oneOf":[
+    "anyOf":[
       {"required": ["media-parameters"]},
       {"required": ["metadata-parameters"]}
     ],
@@ -166,13 +166,13 @@
               "type": "string"
             },
             "video-format": {
-              "$ref": "#/definitions/configuration/parameters"
+              "$ref": "#/configuration/parameters"
             },
             "audio-format": {
-              "$ref": "#/definitions/configuration/parameters"
+              "$ref": "#/configuration/parameters"
             },
             "image-format": {
-              "$ref": "#/definitions/configuration/parameters"
+              "$ref": "#/configuration/parameters"
             },
             "protocol" : {
               "type": "string"
@@ -197,7 +197,7 @@
             "type": "object",
             "minItems": 0,
             "uniqueItems": true,
-            "required": ["stream-id", "name", "keywords"],
+            "required": ["stream-id", "name", "keywords", "mime-type", "protocol"],
             "properties": {
               "stream-id": {
                 "type": "string"
@@ -223,34 +223,22 @@
               },
               "caching-server-url": {
                 "type": "string"    
-              }
-            },
-            "oneof":[
-              {
-                "required": ["mime-type", "protocol"],
-                "properties":{
-                  "mime-type": {
-                    "type": "string"
-                  },
-                  "codec-type": {
-                    "type": "string"
-                  },
-                  "protocol": {
-                    "type": "string"
-                  }
-                }   
               },
-              {
-                "required": ["scheme-uri"],
-                "properties":{
-                  "scheme-uri": {
-                    "type": "string",
-                    "format": "uri" 
-                  }
-                }
+              "mime-type": {
+                "type": "string"
+              },
+              "codec-type": {
+                "type": "string"
+              },
+              "protocol": {
+                "type": "string"
+              },
+              "scheme-uri": {
+                "type": "string",
+                "format": "uri" 
               }
-            ]
-          }
+            }
+          } 
         }
       }
     }
@@ -258,7 +246,7 @@
   "output" : {
     "title": "Output Descriptor Schema",
     "type": "object",
-    "oneOf":[
+    "anyOf":[
       {"required": ["media-parameters"]},
       {"required": ["metadata-parameters"]}
     ],
@@ -291,13 +279,13 @@
               "type": "string"
             },
             "video-format": {
-              "$ref": "#/definitions/configuration/parameters"
+              "$ref": "#/configuration/parameters"
             },
             "audio-format": {
-              "$ref": "#/definitions/configuration/parameters"
+              "$ref": "#/configuration/parameters"
             },
             "image-format": {
-              "$ref": "#/definitions/configuration/parameters"
+              "$ref": "#/configuration/parameters"
             },
             "codec-type": {
               "type": "string"
@@ -326,7 +314,7 @@
           "type": "object",
           "minItems": 0,
           "uniqueItems": true,
-          "required": ["stream-id", "name", "keywords"],
+          "required": ["stream-id", "name", "keywords", "mime-type", "protocol"],
           "properties": {
             "stream-id": {
               "type": "string"
@@ -352,33 +340,21 @@
             },
             "caching-server-url": {
               "type": "string"    
-            }
-          },
-          "oneof":[
-            {
-              "required": ["mime-type", "protocol"],
-              "properties":{
-                "mime-type": {
-                  "type": "string"
-                },
-                "codec-type": {
-                  "type": "string"
-                },
-                "protocol": {
-                  "type": "string"
-                }
-              }   
             },
-            {
-              "required": ["scheme-uri"],
-              "properties":{
-                "scheme-uri": {
-                  "type": "string",
-                  "format": "uri" 
-                }
-              }
+            "mime-type": {
+              "type": "string"
+            },
+            "codec-type": {
+              "type": "string"
+            },
+            "protocol": {
+              "type": "string"
+            },
+            "scheme-uri": {
+              "type": "string",
+              "format": "uri" 
             }
-          ]
+          }   
         }
       }
     }
@@ -482,7 +458,7 @@
                     "type": "string"
                   },
                   "output-restrictions": {
-                    "$ref": "#/definitions/output"
+                    "$ref": "#/output"
                   }
                 }
               },
@@ -504,19 +480,19 @@
                     "type": "string"
                   },
                   "input-restrictions": {
-                    "$ref": "#/definitions/input"
+                    "$ref": "#/input"
                   }
                 }
               },
-              "flowcontrol-parameters": {
-                "type": "object"
+              "flowcontrol": {
+                "$ref": "#/requirement/flowcontrol"
               },
               "co-located": {
                 "type": "boolean",
                 "default": false
               },
               "other-parameters": {
-                "type": "object"
+                "$ref": "#/configuration/parameters"
               }
             }
           }
@@ -536,22 +512,22 @@
                 "type": "string"
               },
               "general": {
-                "$ref": "#/definitions/general"
+                "$ref": "#/general"
               },
               "processing": {
-                "$ref": "#/definitions/processing"
+                "$ref": "#/processing"
               },
               "requirements": {
-                "$ref": "#/definitions/requirements"
+                "$ref": "#/requirements"
               },
               "configuration": {
-                "$ref": "#/definitions/configuration"
+                "$ref": "#/configuration"
               },
               "client-assistant": {
-                "$ref": "#/definitions/client-assistant"
+                "$ref": "#/client-assistant"
               },
               "monitoring": {
-                "$ref": "#/definitions/monitoring"
+                "$ref": "#/monitoring"
               }
             }
           }
@@ -563,7 +539,7 @@
     "title": "Requirements Descriptor Schema",
     "type": "object",
     "properties": {
-      "flowcontrol-requirements": {
+      "flowcontrol": {
         "type": "object",
         "minProperties" : 1,
         "properties": {
@@ -597,7 +573,7 @@
           }
         }
       },
-      "hardware-requirements": {
+      "hardware": {
         "type": "object",
         "minProperties" : 1,
         "properties": {
@@ -623,7 +599,7 @@
           }
         }
       },
-      "security-requirements": {
+      "security": {
         "type": "object",
         "minProperties" : 1,
         "properties": {
@@ -641,7 +617,7 @@
           }
         }
       },
-      "workflow-task-requirements": {
+      "workflow-task": {
         "type": "object",
         "minProperties" : 1,
         "properties": {
@@ -869,7 +845,7 @@
           "unit": {"type": "string"},
           "var-type": {
             "type" : "string",
-            "enum" : ["string", "interger", "float", "boolean"]         
+            "enum" : ["string", "interger", "float", "boolean", "number"]         
           },
           "value": {"type": "string"},
           "min" :{"type": "integer"},
