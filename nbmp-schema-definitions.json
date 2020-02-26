@@ -1155,7 +1155,11 @@
     "required": ["name", "authentication-method"],
     "properties": {
       "name": {"type": "string"},
-      "scope": { "type": "string"},
+      "scope": { 
+        "type": "string",
+        "enum":["data", "function", "task"],
+        "default": "data"
+      },
       "authentication-method": {"type": "string"},
       "authority-url": {
         "type": "string",
