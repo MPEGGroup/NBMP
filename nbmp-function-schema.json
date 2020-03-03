@@ -16,9 +16,8 @@
         "configuration": {"$ref": "nbmp-schema-definitions.json/configuration" },
         "client-assistant": {"$ref": "nbmp-schema-definitions.json/client-assistant" },
         "assertion": {"$ref": "nbmp-schema-definitions.json/assertion" },
-        "reporting": {"$ref": "nbmp-schema-definitions.json/reporting" },
-        "notification": {"$ref": "nbmp-schema-definitions.json/notification" },
-        "monitoring": {"$ref": "nbmp-schema-definitions.json/monitoring" },
+        "variables": {"$ref": "nbmp-schema-definitions.json/variables" },
+        "events": {"$ref": "nbmp-schema-definitions.json/events" },
         "security": {"$ref": "nbmp-schema-definitions.json/security" }
     }
 }
