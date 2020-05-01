@@ -668,103 +668,165 @@
       "parameters": {
         "type": "array",
         "uniqueItems": true,
+        "minItems": 1,
         "items": {
           "type": "object",
-          "required": [
-            "name", "id", "type"
-          ],
+          "required": ["name", "id", "datatype"],
           "properties": {
-            "name": {
-              "type": "string"
-            },
-            "id": {
-              "type": "integer"
-            },
-            "type": {
-              "type": "string",
-              "enum": [
-                "simple", "enum", "range", "class"
-              ]
-            },
+            "name": {"type": "string"},
+            "id": {"type": "integer"},
             "datatype": {
               "type": "string",
-              "enum": [
-                "boolean", "interger", "unsigned-integer", "float", "string", "object", "other"
-              ]
+              "enum": ["boolean", "integer", "number", "string", "array"]
             },
-            "default": {
-              "type": "object"
+            "conditions": {
+              "type": "array",
+              "uniqueItems": true,
+              "description": "List of ids that shall not exist for this parameter to become valid",
+              "items": {"type": "integer"}
             },
-            "restrictions": {
-              "type": "object",
-              "properties": {
-                "enum-values": {
-                  "type": "array",
-                  "uniqueItems": true,
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "int-range": {
-                  "type": "object",
-                  "properties": {
-                    "min-value": {
-                      "type": "integer"
-                    },
-                    "max-value": {
-                      "type": "integer"
-                    },
-                    "increment": {
-                      "type": "integer" 
+            "exclusions": {
+              "type": "array",
+              "description": "List of configurarion ids that shall not exist for this parameter to become valid",
+              "uniqueItems": true,
+              "items": {"type": "integer"}
+            }
+          },
+          "oneof": [
+            {
+              "if":{
+                "properties": {"datatype": { "const": "boolean" } }
+              },
+              "then":{
+                "requires": ["values"],
+                "properties":{
+                  "values": {
+                    "type": "array",
+                    "minitems": 1,
+                    "maxitems": 2,
+                    "uniqueItems": true,
+                    "item": {
+                      "type": "object",
+                      "required": ["name", "id", "restrictions"],
+                      "properties": {
+                        "name": {"type": "string"},
+                        "id": {"type": "integer"},
+                        "restrictions": {"type": "boolean"}
+                      }
+                    }
+                  } 
+                }
+              }
+            },
+            {
+              "if":{
+                "properties": {"datatype": { "const": "integer" } }
+              },
+              "then":{
+                "requires": ["values"],
+                "properties":{
+                  "values": {
+                    "type": "array",
+                    "minitems": 1,
+                    "uniqueItems": true,
+                    "item": {
+                      "type": "object",
+                      "required": ["name", "id", "restrictions"],
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "restrictions": {
+                          "type": "object",
+                          "properties": {            
+                            "min-value": {"type": "integer"},
+                            "max-value": {"type": "integer"},
+                            "increment": {"type": "integer"}
+                          }
+                        }
+                      }
                     }
                   }
-                },
-                "float-range": {
-                  "type": "object",
-                  "properties": {
-                    "min-value": {
-                      "type": "number"
-                    },
-                    "max-value": {
-                      "type": "number"
-                    },
-                    "increment": {
-                      "type": "number" 
+                }
+              }   
+            },
+            {
+              "if":{
+                "properties": {"datatype": { "const": "number" } }
+              },
+              "then": {
+                "requires": ["values"],
+                "properties":{
+                  "values": {
+                    "type": "array",
+                    "minitems": 1,
+                    "uniqueItems": true,
+                    "item": {
+                      "type": "object",
+                      "required": ["name", "id", "restrictions"],
+                      "properties": {
+                        "name": {"type": "string"},
+                        "id": {"type": "integer"},
+                        "restrictions": {
+                          "type": "object",
+                          "properties": {            
+                            "min-value": {"type": "number"},
+                            "max-value": {"type": "number"},
+                            "increment": {"type": "number"}
+                          }   
+                        }
+                      }
                     }
                   }
                 }
               }
             },
-            "conditions": {
-              "type": "array",
-              "uniqueItems": true,
-              "description": "List of configurarion ids",
-              "items": {
-                "type": "integer"
+            {
+              "if":{
+                "properties": {"datatype": { "const": "string" } }
+              },
+              "then":{
+                "requires": ["values"],
+                "properties":{
+                  "values": {
+                    "type": "array",
+                    "minitems": 1,
+                    "uniqueItems": true,
+                    "item": {
+                      "type": "object",
+                      "required": ["name", "id", "restrictions"],
+                      "properties": {
+                        "name": {"type": "string"},
+                        "id": {"type": "integer"},
+                        "restrictions": {
+                          "type": "array", 
+                          "minItems": 1,        
+                          "uniqueItems": true,
+                          "items": {"type": "string"}
+                        }
+                      }
+                    }
+                  }
+                }    
               }
             },
-            "exclusion": {
-              "type": "array",
-              "description": "List of configurarion ids",
-              "uniqueItems": true,
-              "items": {
-                "type": "integer"
-              }
+            {
+              "if":{
+                "properties": {"datatype": { "const": "array" } }
+              },
+              "then":{
+                "requires": ["schema"],
+                "properties":{
+                  "schema":{"type": "array"}
+                } 
+              } 
             }
-          }
-        }  
-      }
-    }   
-  },
-  "startup-delay": { 
-    "title": "Startup-delay Descriptor Schema",
-    "type": "object",
-    "required": ["startup-delay" ],
-    "properties": {
-      "startup-delay": {
-        "type": "integer",
-        "minimum": 0
-      }
+          ]
+        }
+      }     
     }
   },
   "client-assistant": { 
@@ -838,7 +900,7 @@
       "minItems": 1,
       "uniqueItems": true,
       "items" : {
-        "required": ["name", "definition", "unit", "var-type", "value"],
+        "required": ["name", "definition", "unit", "var-type"],
         "properties": {
           "name": {"type": "string"},
           "definition": {"type": "string"},
