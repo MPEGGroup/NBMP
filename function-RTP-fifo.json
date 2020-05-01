@@ -1,0 +1,84 @@
+{
+  "parameters": [
+    {
+      "name": "time-scale",
+      "id": 1,
+      "datatype": "integer",
+      "values": [
+        {
+          "name": "nonzero",
+          "id": 11,
+          "restrictions": { "min-value": 1 }
+        }
+      ]
+    },
+    {
+      "name": "duration",
+      "id": 2,
+      "datatype": "integer",
+      "values": [
+        {
+          "name": "nonzero",
+          "id": 21,
+          "restrictions": { "min-value": 1 }
+        }
+      ]
+    },
+    {
+      "name": "stream-number",
+      "id": 3,
+      "datatype": "integer",
+      "values": [
+        {
+          "name": "nonzero",
+          "id": 31,
+          "restrictions": { "min-value": 1 }
+        }
+      ]
+    },
+    {
+      "name": "buffer-size",
+      "id": 4,
+      "datatype": "integer",
+      "values": [
+        {
+          "name": "nonzero",
+          "id": 41,
+          "restrictions": { "min-value": 1 }
+        }
+      ]
+    },
+    {
+      "name": "max-segment-size",
+      "id": 5,
+      "datatype": "integer",
+      "values": [
+        {
+          "name": "nonzero",
+          "id": 51,
+          "restrictions": { "min-value": 1 }
+        }
+      ]
+    },
+    {
+      "name": "non-segment-op",
+      "id": 6,
+      "datatype": "boolean"
+    },
+    {
+      "name": "buffer-fullness-inc-event",
+      "id": 7,
+      "datatype": "integer",
+      "values": [
+        {
+          "name": "nonzero",
+          "id": 71,
+          "restrictions": {
+            "min-value": 1,
+            "max-value": 100
+          }
+        }
+      ]
+    }
+  ]
+}
