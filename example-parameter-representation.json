@@ -1,0 +1,83 @@
+{
+  "parameters": [
+    {
+      "name": "p1",
+      "id": 1,
+      "datatype": "integer",
+      "values": [
+        {
+          "name": "v11",
+          "id": 11,
+          "restrictions": {
+            "min-value": 0,
+            "max-value": 10
+          }
+        },
+        {
+          "name": "v12",
+          "id": 12,
+          "restrictions": {
+            "min-value": 11
+          }
+        }
+      ]
+    },
+    {
+      "name": "p2",
+      "id": 2,
+      "datatype": "integer",
+      "values": [
+        {
+          "name": "v21",
+          "id": 21,
+          "restrictions": {
+            "min-value": 25
+          }
+        }
+      ]
+    },
+    {
+      "name": "p3",
+      "id": 3,
+      "datatype": "string",
+      "conditions": [11],
+      "values": [
+        {
+          "name": "v31",
+          "id": 31,
+          "restrictions": ["linear"]
+        },
+        {
+          "name": "v32",
+          "id": 32,
+          "restrictions": ["exponential"]
+        }
+      ]
+    },
+    {
+      "name": "p4",
+      "id": 4,
+      "datatype": "float",
+      "conditions": [12]
+    },
+    {
+      "name": "p5",
+      "id": 5,
+      "datatype": "float",
+      "conditions": [31]
+    },
+    {
+      "name": "p6",
+      "id": 6,
+      "datatype": "array",
+      "conditions": [21],
+      "exclusions": [32],
+      "schema": {
+        "type": "array",
+        "item": "integer",
+        "minItems": 4,
+        "maxItems": 4
+      }
+    }
+  ]
+}
