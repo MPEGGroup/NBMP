@@ -38,7 +38,7 @@
         "type": "integer",
         "minimum": 0
       },
-      "mpeg-compatibility": {
+      "nbmp-brand": {
         "type": "string",
         "format": "uri",
         "pattenrProperties":{
@@ -66,7 +66,7 @@
             },
             "bind": {
               "type": "object",
-              "required": ["stream_id", "name"],
+              "required": ["stream-id", "name"],
               "properties": {
                 "stream-id": {
                   "type": "string"
@@ -100,7 +100,7 @@
             },
             "bind": {
               "type": "object",
-              "required": ["stream_id", "name"],
+              "required": ["stream-id", "name"],
               "properties": {
                 "stream-id": {
                   "type": "string"
@@ -675,6 +675,7 @@
           "properties": {
             "name": {"type": "string"},
             "id": {"type": "integer"},
+            "discription": {"type": "string"},
             "datatype": {
               "type": "string",
               "enum": ["boolean", "integer", "number", "string", "array"]
