@@ -13,6 +13,7 @@
         "output": {"$ref": "nbmp-schema-definitions.json/output" },
         "processing": {"$ref": "nbmp-schema-definitions.json/processing" },
         "requirement": {"$ref": "nbmp-schema-definitions.json/requirement" },
+        "step": {"$ref": "nbmp-schema-definitions.json/step" },
         "client-assistant": {"$ref": "nbmp-schema-definitions.json/client-assistant" },
         "failover": {"$ref": "nbmp-schema-definitions.json/failover" },
         "monitoring": {"$ref": "nbmp-schema-definitions.json/monitoring" },

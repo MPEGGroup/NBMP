@@ -14,6 +14,7 @@
         "processing": {"$ref": "nbmp-schema-definitions.json/processing" },
         "requirement": {"$ref": "nbmp-schema-definitions.json/requirement" },
         "configuration": {"$ref": "nbmp-schema-definitions.json/configuration" },
+        "step": {"$ref": "nbmp-schema-definitions.json/step" },
         "client-assistant": {"$ref": "nbmp-schema-definitions.json/client-assistant" },
         "assertion": {"$ref": "nbmp-schema-definitions.json/assertion" },
         "variables": {"$ref": "nbmp-schema-definitions.json/variables" },
