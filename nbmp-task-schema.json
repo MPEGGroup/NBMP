@@ -13,6 +13,7 @@
         "processing": {"$ref": "nbmp-schema-definitions.json/processing" },
         "requirement": {"$ref": "nbmp-schema-definitions.json/requirement" },
         "configuration": {"$ref": "nbmp-schema-definitions.json/configuration" },
+        "step": {"$ref": "nbmp-schema-definitions.json/step" },
         "startup-delay": {"$ref": "nbmp-schema-definitions.json/startup-delay" },
         "client-assistant": {"$ref": "nbmp-schema-definitions.json/client-assistant" },
         "failover": {"$ref": "nbmp-schema-definitions.json/failover" },
