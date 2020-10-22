@@ -1,0 +1,106 @@
+{
+  "parameters": [
+    {
+      "name": "target-resolution",
+      "id": 1,
+      "datatype": "array",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "orientation-priority",
+      "id": 2,
+      "datatype": "string",
+      "values": [
+        {
+          "restrictions": [
+              "portrait",
+              "landscape"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cropping-type",
+      "id": 3,
+      "datatype": "string",
+      "values": [
+        {
+            "restrictions": [
+                "tight",
+                "loosing"
+            ]
+        }
+      ]
+    },
+    {
+      "name": "auto-scaling",
+      "id": 4,
+      "datatype": "boolean"
+    },
+    {
+      "name": "alignment",
+      "id": 5,
+      "datatype": "string",
+      "values": [
+        {
+            "restrictions": [
+                "auto",
+                "center"
+            ]
+        }
+      ]
+    },
+    {
+      "name": "region-of-interet",
+      "id": 6,
+      "datatype": "array",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "cinematic-constraint",
+      "id": 7,
+      "type": "simple",
+      "datatype": "string",
+      "values": [
+        {
+          "restrictions": [
+              "rule-of-thirds",
+              "wa-cu",
+              "alignment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "audio-constraint",
+      "id": 8,
+      "datatype": "string",
+      "values": [
+        {
+          "restrictions": [
+              "none",
+              "beat",
+              "downbeat",
+              "upbeat",
+              "backbeat"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "processing-constraint",
+      "id": 9,
+      "type": "simple",
+      "datatype": "boolean"
+    },
+    {
+      "name": "hdr-adjustment",
+      "id": 10,
+      "datatype": "string"
+    }
+  ]
+} 

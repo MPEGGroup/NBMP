@@ -1,0 +1,19 @@
+{
+  "parameters": [
+    {
+      "name": "dash-profile",
+      "datatype": "string"
+    },
+    {
+      "name": "mpd-template-url",
+      "datatype": "string"
+    },
+    {
+      "name": "dash-properties",
+      "datatype": "object",
+      "schema":{
+        "$ref": "https://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd"
+      }
+    }
+  ]
+}
