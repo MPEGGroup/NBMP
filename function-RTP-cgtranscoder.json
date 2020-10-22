@@ -1,0 +1,7 @@
+{
+  "parameters": [
+    {"name":"rate-control-mode", "id": 1, "type": "enum", "datatype":"string", "default": "cbr", "restrictions":{"enum-values":["cbr", "cvbr"]}},
+    {"name":"video-output-bitrate", "id": 2, "type": "simple", "datatype":"unsigned-integer"},
+    {"name":"video-output-bitrate-variation", "id": 3, "type": "simple", "datatype":"unsigned-integer"}
+  ]
+}

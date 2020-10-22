@@ -1,0 +1,9 @@
+{
+  "parameters": [
+    {
+      "name": "composition-metadata",
+      "datatype": "boolean",
+      "default": "false"
+    } 
+  ]
+}

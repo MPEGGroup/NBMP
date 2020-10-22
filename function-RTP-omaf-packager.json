@@ -1,0 +1,114 @@
+{
+  "parameters": [
+    {
+      "name": "overlays",
+      "id": 1,
+      "datatype": "array",
+      "schema": {
+        "type": "object",
+        "$ref": "#/definitions/overlay"
+      }
+    },
+    {
+      "name": "tiling-schema",
+      "id": 2,
+      "datatype": "string",
+      "values": [
+        {
+          "restrictions": ["multi-quality", "multi-resolution"]
+        }
+      ]
+    },
+    {
+      "name": "tiles",
+      "id": 3,
+      "datatype": "string"
+    },
+    {
+      "name": "target-latency",
+      "id": 4,
+      "datatype": "integer"
+    },
+    {
+      "name": "resolution",
+      "id": 5,
+      "datatype": "array",
+      "schema": {
+        "type": "number",
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    {
+      "name": "bitrate",
+      "id": 6,
+      "datatype": "number"
+    },
+    {
+      "name": "recommended-viewport",
+      "id": 7,
+      "datatype": "array",
+      "schema": {
+        "type": "number",
+        "minItems": 4,
+        "maxItems": 4
+        }
+    },
+    {
+      "name": "dash-mpd",
+      "id": 8,
+      "datatype": "string"
+    },
+    {
+      "name": "dash-profile",
+      "id": 9,
+      "datatype": "string"
+    },
+    {
+      "name": "dash-properties",
+      "id": 10,
+      "datatype": "object",
+      "schema":{
+        "$ref": "https://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd"
+      }
+    }
+],
+  "definitions": {
+    "overlay": {
+      "type": "object",
+      "properties": {
+        "overlay-type": {
+          "type": "string",
+          "description": "Overlay position type"
+        },
+        "centre-position": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minItems": 3,
+            "maxItems": 3
+          }
+        },
+        "rotation": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minItems": 3,
+              "maxItems": 3
+            }
+        },
+        "size": {
+          "type": "array",
+          "items": {
+              "type": "number",
+              "minItems": 2,
+              "maxItems": 2
+            }
+        },
+        "opacity": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

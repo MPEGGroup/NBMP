@@ -1,96 +1,119 @@
 {
-  "parameters": [
-    {
-      "name": "merge-number",
-      "id": 1,
-      "datatype": "integer",
-      "values": [
-        {
-          "name": "nonzero",
-          "id": 11,
-          "restrictions": { "min-value": 1 }
-        }
-      ]
-    },
-    {
-      "name": "time-scale",
-      "id": 2,
-      "datatype": "integer",
-      "values": [
-        {
-          "name": "nonzero",
-          "id": 21,
-          "restrictions": { "min-value": 1 }
-        }
-      ]
-    },
-    {
-      "name": "segment-duration",
-      "id": 3,
-      "datatype": "integer",
-      "values": [
-        {
-          "name": "nonzero",
-          "id": 31,
-          "restrictions": { "min-value": 1 }
-        }
-      ]
-    },
-    {
-      "name": "in-buffer-size",
-      "id": 4,
-      "datatype": "integer",
-      "values": [
-        {
-          "name": "nonzero",
-          "id": 41,
-          "restrictions": { "min-value": 1 }
-        }
-      ]
-    },
-    {
-      "name": "out-buffer-size",
-      "id": 5,
-      "datatype": "integer",
-      "values": [
-        {
-          "name": "nonzero",
-          "id": 51,
-          "restrictions": { "min-value": 1 }
-        }
-      ]
-    },
-    {
-      "name": "max-segment-size",
-      "id": 6,
-      "datatype": "integer",
-      "values": [
-        {
-          "name": "nonzero",
-          "id": 61,
-          "restrictions": { "min-value": 1 }
-        }
-      ]
-    },
-    {
-      "name": "non-segment-op",
-      "id": 7,
-      "datatype": "boolean"
-    },
-    {
-      "name": "buffer-fullness-inc-event",
-      "id": 8,
-      "datatype": "integer",
-      "values": [
-        {
-          "name": "nonzero",
-          "id": 81,
-          "restrictions": {
-            "min-value": 1,
-            "max-value": 100
+  "configuration":  {
+    "parameters": [
+      {
+        "name": "merge-number",
+        "id": 1,
+        "datatype": "integer",
+        "values": [
+          {
+            "name": "nonzero",
+            "id": 11,
+            "restrictions": { "min-value": 1 }
           }
-        }
-      ]
+        ]
+      },
+      {
+        "name": "time-scale",
+        "id": 2,
+        "datatype": "integer",
+        "values": [
+          {
+            "name": "nonzero",
+            "id": 21,
+            "restrictions": { "min-value": 1 }
+          }
+        ]
+      },
+      {
+        "name": "variable-duration",
+        "id": 3,
+        "datatype": "boolean"
+      },
+      {
+        "name": "segment-duration",
+        "id": 4,
+        "datatype": "integer",
+        "values": [
+          {
+            "name": "nonzero",
+            "id": 41,
+            "restrictions": {"min-value": 1}
+          }
+        ]
+      },
+      {
+        "name": "in-buffer-size",
+        "id": 5,
+        "datatype": "integer",
+        "values": [
+          {
+            "name": "nonzero",
+            "id": 51,
+            "restrictions": {"min-value": 1}
+          }
+        ]
+      },
+      {
+        "name": "out-buffer-size",
+        "id": 6,
+        "datatype": "integer",
+        "values": [
+          {
+            "name": "nonzero",
+            "id": 61,
+            "restrictions": {"min-value": 1}
+          }
+        ]
+      },
+      {
+        "name": "max-segment-size",
+        "id": 7,
+        "datatype": "integer",
+        "values": [
+          {
+            "name": "nonzero",
+            "id": 71,
+            "restrictions": {"min-value": 1}
+          }
+        ]
+      },
+      {
+        "name": "non-segment-op",
+        "id": 8,
+        "datatype": "boolean"
+      },
+      {
+        "name": "buffer-fullness-inc-event",
+        "id": 9,
+        "datatype": "integer",
+        "values": [
+          {
+            "name": "nonzero",
+            "id": 91,
+            "restrictions": {
+              "min-value": 1,
+              "max-value": 100
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "events": [
+    {
+      "name": "buffer-fullness",
+      "definition": "level of buffer fullness in percentage"
+    } 
+  ],
+  "variables": [
+    {
+      "name": "buffer-fullness",
+      "definition": "level of buffer fullness in percentage",
+      "unit": "percentage",
+      "var-type": "integer",
+      "min": 0,
+      "max": 100
     }
   ]
 }
