@@ -1,0 +1,147 @@
+{
+  "parameters": [
+    {
+      "name": "stitching-type",
+      "id": 1,
+      "datatype": "string",
+      "values": [
+        {
+          "id": 11,
+          "restrictions": [
+            "monoscopic"
+          ]
+        },
+        {
+          "id": 12,
+          "restrictions": [
+            "stereoscopic"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "camera-parameters",
+      "id": 2,
+      "datatype": "array",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "camera-intrinsic": {
+            "type": "object",
+            "$ref": "#/definitions/camera-intrinsic"
+          },
+          "camera-extrinsic": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minItems": 16,
+              "maxItems": 16
+            }
+          },
+          "camera-shutter-type": {
+            "type": "string",
+            "desciption": "The camera shutter type. Onel of 'rolling' and  'global'. Default is 'rolling'"
+          },
+          "camera-sync-skew": {
+            "type": "number"
+          },
+          "capturing-environment": {
+            "type": "string"
+          },
+          "shooting-type": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "name": "v-seam-positions",
+      "id": 3,
+      "datatype": "array",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "name": "h-seam-positions",
+      "id": 4,
+      "datatype": "array",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "name": "seam-mask",
+      "id": 5,
+      "datatype": "string"
+    },
+    {
+      "name": "stitching-method",
+      "id": 6,
+      "datatype": "string"
+    },
+    {
+      "name": "seam-extent-freedom",
+      "id": 7,
+      "datatype": "array",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "name": "convergence-distance",
+      "id": 8,
+      "datatype": "string"
+    },
+    {
+      "name": "camera-weighting",
+      "id": 9,
+      "datatype": "array",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "output-coverage",
+      "id": 10,
+      "datatype": "array",
+      "schema": {
+        "type": "number"
+      }
+    }
+  ],
+  "definitions": {
+    "camera-intrinsic": {
+      "type": "object",
+      "properties": {
+        "camera-type": {
+          "type": "string",
+          "description": "Camera type. One of 'pinhole', 'fisheye', 'omnidirectional'. Default is 'pinhole'"
+        },
+        "focal-length": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "principal-point": {
+          "type": "array",
+          "items": {
+              "type": "number",
+            "minItems": 2,
+            "maxItems":2
+          }
+        },
+        "distortion": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minItems": 4
+          }
+        }
+      }
+    }
+  }
+}
