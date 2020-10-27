@@ -1261,5 +1261,20 @@
         "minimum": 0
       }
     }
+  },
+  "scope": {
+    "title": "Scope Descriptor Schema",
+    "type": "object",
+    "required": ["blacklist"],
+    "properties": {
+      "blacklist": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "string"
+        }
+      }
+    }  
   }
 }

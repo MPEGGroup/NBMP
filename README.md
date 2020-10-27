@@ -7,8 +7,6 @@ This repository consist of the following files:
 - *nbmp-schema-definitions.json*  core schema definitions
 - *nbmp-function-schema.json*  Function Description Document schema
 - *nbmp-task-schema.json*  Task Description Document schema
-- *nbmp-task-schema.json*  Workflow Description Document schema
+- *nbmp-workflow-schema.json*  Workflow Description Document schema
 - *example-parameter-representation*  Configuration parameters example of ISO/IEC 23090-8, subclause 9.22.2
-- *fuction-RTP-fifo.json*   Fifo Function Reference Template parameters
-- *fuction-RTP-merger.json*   Merger Function Reference Template parameters
-- *fuction-RTP-splitter.json*   Splitter Function Reference Template parameters
+- *fuction-RTP-*.json*   Function Reference Template parameters
