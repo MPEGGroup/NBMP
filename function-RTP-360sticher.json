@@ -40,7 +40,7 @@
           },
           "camera-shutter-type": {
             "type": "string",
-            "desciption": "The camera shutter type. Onel of 'rolling' and  'global'. Default is 'rolling'"
+            "desciption": "The camera shutter type. One of 'rolling', and 'global'. Default is 'rolling'"
           },
           "camera-sync-skew": {
             "type": "number"
@@ -108,6 +108,22 @@
       "schema": {
         "type": "number"
       }
+    },
+    {
+      "name": "feature-parameter",
+      "id": 11,
+      "datatype": "object",
+      "schema": {
+            "$ref": "#/definitions/feature-parameter"
+      }
+    },    
+    {
+      "name": "projection-parameters",
+      "id": 12,
+      "datatype": "array",
+      "schema": {
+            "$ref": "#/definitions/projection-parameter"
+      }
     }
   ],
   "definitions": {
@@ -131,7 +147,7 @@
           "items": {
               "type": "number",
             "minItems": 2,
-            "maxItems": 2
+            "maxItems":2
           }
         },
         "distortion": {
@@ -142,6 +158,28 @@
           }
         }
       }
-    }
-  }
+    },
+    "feature-parameter": {
+      "type": "object",
+      "properties": {
+        "feature-extraction-method": {
+            "type": "string",
+            "format": "uri", 
+            "patternProperties": {
+                "^urn:": {"type": "string"}
+            },
+          "additionalProperties": false
+        }
+      }
+    },
+    "projection-parameter": {
+      "type": "string",
+      "properties": {
+        "projection-type": {
+          "type": "string",
+          "description": "Projection type. One of Equirectangular, Cubemap, or other projection type. Default is Equirectangular."            
+        }
+      }
+    }     
+  } 
 }

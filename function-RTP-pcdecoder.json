@@ -1,0 +1,8 @@
+{
+  "parameters": [
+    {
+      "name": "urn-vpcc",
+      "datatype": "string"
+    }
+  ]
+}

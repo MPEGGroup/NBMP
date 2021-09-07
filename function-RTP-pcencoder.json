@@ -1,0 +1,16 @@
+{
+  "parameters": [
+    {
+      "name": "urn-vpcc",
+      "datatype": "string"
+    },
+    {
+      "name": "urn-enc-param",
+      "datatype": "string"
+    },
+    {
+      "name": " enc-param-cfg-url",
+      "datatype": "string"
+    }
+  ]
+}

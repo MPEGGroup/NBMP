@@ -8,7 +8,7 @@
         {
           "name": "nonzero",
           "id": 11,
-          "restrictions": { "min-value": 1 }
+          "restrictions": {"min-value": 1}
         }
       ]
     },
@@ -20,7 +20,7 @@
         {
           "name": "nonzero",
           "id": 21,
-          "restrictions": { "min-value": 1 }
+          "restrictions": {"min-value": 1}
         }
       ]
     },
@@ -32,7 +32,7 @@
         {
           "name": "nonzero",
           "id": 31,
-          "restrictions": { "min-value": 1 }
+          "restrictions": {"min-value": 1}
         }
       ]
     },
@@ -44,7 +44,7 @@
         {
           "name": "nonzero",
           "id": 41,
-          "restrictions": { "min-value": 1 }
+          "restrictions": {"min-value": 1}
         }
       ]
     },
@@ -56,7 +56,7 @@
         {
           "name": "nonzero",
           "id": 51,
-          "restrictions": { "min-value": 1 }
+          "restrictions": {"min-value": 1}
         }
       ]
     },
