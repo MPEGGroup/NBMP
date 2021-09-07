@@ -4,6 +4,63 @@
       "name": "composition-metadata",
       "datatype": "boolean",
       "default": "false"
-    } 
+    },
+    {
+      "name": "input-port-group",
+      "datatype": "array",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "input-group-name": {
+            "type": "string",
+            "description": "The name of media source for the input port group"
+          },
+          "input-ports-by-name": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "input-type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "encoding-delay-offset": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "input-formats",
+      "datatype": "array",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "input-port-name": {
+            "type": "string",
+            "desciption": "The name of the input-port following parameters apply"
+          },
+          "number-of-inter-frames": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "encoding-delay-offset": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
   ]
 }
+

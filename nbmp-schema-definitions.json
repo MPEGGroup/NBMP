@@ -7,9 +7,7 @@
   "scheme": { 
     "title": "Scheme Descriptor Schema",
     "type": "object",
-    "required": [
-      "uri"
-    ],
+    "required": ["uri"],
     "properties": {
       "uri": {
         "type": "string",
@@ -20,20 +18,11 @@
   "general": {
     "title": "General Descriptor Schema",
     "type": "object",
-    "required": [
-      "id", "name", "description",
-      "input-ports","output-ports", "state"
-    ],  
+    "required": ["id", "name", "description", "input-ports","output-ports", "state"],  
     "properties": {
-      "id": {
-        "type": "string"
-      },
-      "name": {
-        "type": "string"
-      },
-      "description": {
-        "type": "string"
-      },
+      "id": {"type": "string"},
+      "name": {"type": "string"},
+      "description": {"type": "string"},
       "rank": {
         "type": "integer",
         "minimum": 0
@@ -41,18 +30,14 @@
       "nbmp-brand": {
         "type": "string",
         "format": "uri",
-        "pattenrProperties":{
-          "^urn:mpeg:mpegi:nbmp:v": {"type" : "string"}
-        },
+        "pattern": "^urn:mpeg:mpegi:nbmp:(2([0-9]{3})):([a-zA-Z0-9_]+)$",
         "additionalProperties": false
       },
       "published-time": {
         "type": "string",
         "format": "date-time"
       },
-      "priority": {
-        "type": "number"
-      },
+      "priority": {"type": "number"},
       "input-ports": {
         "type": "array",
         "minItems": 1,
@@ -61,26 +46,18 @@
           "type": "object",
           "required": ["port-name", "bind"],
           "properties": {
-            "port-name": {
-              "type": "string"
-            },
+            "port-name": {"type": "string"},
             "bind": {
               "type": "object",
               "required": ["stream-id", "name"],
               "properties": {
-                "stream-id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
+                "stream-id": {"type": "string"},
+                "name": {"type": "string"},
                 "keywords": {
                   "type": "array",
                   "minItems": 1,
                   "uniqueItems": true,
-                  "items": {
-                    "type": "string"
-                  }
+                  "items": {"type": "string"}
                 }
               }
             }
@@ -95,26 +72,18 @@
           "type": "object",
           "required": ["port-name", "bind"],
           "properties": {
-            "port-name": {
-              "type": "string"
-            },
+            "port-name": {"type": "string"},
             "bind": {
               "type": "object",
               "required": ["stream-id", "name"],
               "properties": {
-                "stream-id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
+                "stream-id": {"type": "string"},
+                "name": {"type": "string"},
                 "keywords": {
                   "type": "array",
                   "minItems": 1,
                   "uniqueItems": true,
-                  "items": {
-                    "type": "string"
-                  }
+                  "items": {"type": "string"}
                 }
               }
             }
@@ -125,12 +94,14 @@
         "type": "boolean",
         "default": false
       },
-      "state": {
-      " type": "string"
-      }
+      "nonessential": {
+        "type": "boolean",
+        "default": false
+      },
+      "state": {" type": "string"}
     }
   },
-  "input" : {
+  "input": {
     "title": "Input Descriptor Schema",
     "type": "object",
     "anyOf":[
@@ -144,39 +115,22 @@
         "uniqueItems": true,
         "items": {
           "type": "object",
-          "required": [
-            "stream-id", "name", "keywords", "mime-type", "data-type", "protocol","caching-server-url"
-          ],
+          "required": ["stream-id", "name", "keywords", "mime-type", "protocol","caching-server-url"],
           "properties": {
-            "stream-id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
+            "stream-id": {"type": "string"},
+            "name": {"type": "string"},
             "keywords": {
               "type": "array",
               "minItems": 1,
               "uniqueItems": true,
-              "items": {
-                "type": "string"
-              }
+              "items": {"type": "string"}
             },
-            "mime-type": {
-              "type": "string"
-            },
-            "video-format": {
-              "$ref": "#/configuration/parameters"
-            },
-            "audio-format": {
-              "$ref": "#/configuration/parameters"
-            },
-            "image-format": {
-              "$ref": "#/configuration/parameters"
-            },
-            "protocol" : {
-              "type": "string"
-            },
+            "mime-type": {"type": "string"},
+            "video-format": {"$ref": "#/configuration/parameters"},
+            "audio-format": {"$ref": "#/configuration/parameters"},
+            "image-format": {"$ref": "#/configuration/parameters"},
+            "codec-type": {"type": "string"},
+            "protocol": {"type": "string"},
             "throughput": {
               "type": "integer",
               "minimum": 0
@@ -188,62 +142,58 @@
             "caching-server-url": {
               "type": "string",
               "format": "uri"  
+            },
+            "timeout": {
+              "type": "integer",
+              "minimum": 0
             }
           }
-        },
-        "metadata-parameters": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "minItems": 0,
-            "uniqueItems": true,
-            "required": ["stream-id", "name", "keywords", "mime-type", "protocol"],
-            "properties": {
-              "stream-id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "keywords": {
-                "type": "array",
-                "minItems": 1,
-                "uniqueItems": true,
-                "items": {
-                    "type": "string"
-                }
-              },
-              "max-size": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "min-interval": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "caching-server-url": {
-                "type": "string"    
-              },
-              "mime-type": {
-                "type": "string"
-              },
-              "codec-type": {
-                "type": "string"
-              },
-              "protocol": {
-                "type": "string"
-              },
-              "scheme-uri": {
-                "type": "string",
-                "format": "uri" 
-              }
-            }
-          } 
         }
+      },
+      "metadata-parameters": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "minItems": 0,
+          "uniqueItems": true,
+          "required": ["stream-id", "name", "keywords", "mime-type", "protocol"],
+          "properties": {
+            "stream-id": {"type": "string"},
+            "name": {"type": "string"},
+            "keywords": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {"type": "string"}
+            },
+            "mime-type": {"type": "string"},
+            "codec-type": {"type": "string"},
+            "protocol": {"type": "string"},
+            "max-size": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "min-interval": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "caching-server-url": {
+              "type": "string"    
+            },
+            "scheme-uri": {
+              "type": "string",
+              "format": "uri" 
+            },
+            "timeout": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        } 
       }
     }
   },
-  "output" : {
+  "output": {
     "title": "Output Descriptor Schema",
     "type": "object",
     "anyOf":[
@@ -257,42 +207,22 @@
         "uniqueItems": true,
         "items": {
           "type": "object",
-          "required": [
-            "stream-id", "name", "keywords", "mime-type", "protocol", "caching-server-url"
-          ],
+          "required": ["stream-id", "name", "keywords", "mime-type", "protocol", "caching-server-url"],
           "properties": {
-            "stream-id": {
-                "type": "string"
-            },
-            "name": {
-                "type": "string"
-            },
+            "stream-id": {"type": "string"},
+            "name": {"type": "string"},
             "keywords": {
               "type": "array",
               "minItems": 1,
               "uniqueItems": true,
-              "items": {
-                "type": "string"
-              }
+              "items": {"type": "string"}
             },
-            "mime-type": {
-              "type": "string"
-            },
-            "video-format": {
-              "$ref": "#/configuration/parameters"
-            },
-            "audio-format": {
-              "$ref": "#/configuration/parameters"
-            },
-            "image-format": {
-              "$ref": "#/configuration/parameters"
-            },
-            "codec-type": {
-              "type": "string"
-            },
-            "protocol" : {
-              "type": "string"
-            },
+            "mime-type": {"type": "string"},
+            "video-format": {"$ref": "#/configuration/parameters"},
+            "audio-format": {"$ref": "#/configuration/parameters"},
+            "image-format": {"$ref": "#/configuration/parameters"},
+            "codec-type": {"type": "string"},
+            "protocol": {"type": "string"},
             "throughput": {
               "type": "integer",
               "minimum": 0
@@ -316,20 +246,17 @@
           "uniqueItems": true,
           "required": ["stream-id", "name", "keywords", "mime-type", "protocol"],
           "properties": {
-            "stream-id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
+            "stream-id": {"type": "string"},
+            "name": {"type": "string"},
             "keywords": {
               "type": "array",
               "minItems": 1,
               "uniqueItems": true,
-              "items": {
-                  "type": "string"
-              }
+              "items": {"type": "string"}
             },
+            "mime-type": {"type": "string"},
+            "codec-type": {"type": "string"},
+            "protocol": {"type": "string"},
             "max-size": {
               "type": "integer",
               "minimum": 0
@@ -338,18 +265,7 @@
               "type": "integer",
               "minimum": 0
             },
-            "caching-server-url": {
-              "type": "string"    
-            },
-            "mime-type": {
-              "type": "string"
-            },
-            "codec-type": {
-              "type": "string"
-            },
-            "protocol": {
-              "type": "string"
-            },
+            "caching-server-url": {"type": "string"},
             "scheme-uri": {
               "type": "string",
               "format": "uri" 
@@ -362,18 +278,13 @@
   "processing": {
     "title": "Processing Descriptor Schema",
     "type": "object",
-    "required": [
-      "keywords",
-      "image"
-    ],
+    "required": ["keywords", "image"],
     "properties": {
       "keywords": {
         "type": "array",
         "minItems": 1,
         "uniqueItems": true,
-        "items": {
-          "type": "string"
-        }
+        "items": {"type": "string"}
       },
       "image": {
         "type": "array",
@@ -381,7 +292,7 @@
         "uniqueItems": true,
         "items": {
           "type": "object",
-          "required" : [ "url"],
+          "required": ["url"],
           "properties": {
             "is-dynamic": { 
               "type": "boolean",
@@ -391,35 +302,30 @@
               "type": "string",
               "format": "url"
             },
-            "static-image-info":{
+            "static-image-info": {
               "type": "object",
-              "required": [
-                "os", "version", "architecture", "environment"
-              ],
+              "required": ["os", "version", "architecture", "environment"],
               "properties": {
-                "os":{ "type": "string"},
-                "version":{ "type": "string"},
-                "architecture":{ "type": "string"},
-                "environment":{ "type": "string"},
-                "patch-url":{ 
+                "os": {"type": "string"},
+                "version": {"type": "string"},
+                "architecture": {"type": "string"},
+                "environment": {"type": "string"},
+                "patch-url": { 
                   "type": "string",
                   "format": "url"
                 },
-                "patch-script":{ 
-                  "type": "string",
-                  "format": "url"
-                }
+                "patch-script": {"type": "object"}
               }
             },
-            "dynamic-image-info":{
+            "dynamic-image-info": {
               "type": "object",
               "required": ["scheme", "information"],
               "properties": {
-                "pscheme":{ 
+                "scheme": { 
                   "type": "string",
                   "format": "url"
                 },
-                "information":{ "type": "object"}
+                "information": {"type": "object"}
               }
             }
           }
@@ -433,105 +339,69 @@
         "type": "array",
         "minItems": 1,
         "uniqueItems": true,
-        "items": [
+        "items":
           {
             "type": "object",
-            "required": [
-              "from", "to"
-            ],
+            "required": ["from", "to"],
             "properties": {
-              "from":{
+              "from": {
                 "type": "object",
-                "required": [
-                  "id",
-                  "instance",
-                  "port-name"
-                ],
+                "required": ["id", "instance", "port-name"],
                 "properties": {
-                  "id" : {
-                    "type": "string"
-                  },
-                  "instance": {
-                    "type": "string"
-                  },
-                  "port-name": {
-                    "type": "string"
-                  },
-                  "output-restrictions": {
-                    "$ref": "#/output"
-                  }
+                  "id": {"type": "string"},
+                  "instance": {"type": "string"},
+                  "port-name": {"type": "string"},
+                  "output-restrictions": {"$ref": "#/output"}
                 }
               },
               "to": {
                 "type": "object",
-                "required": [
-                  "id",
-                  "instance",
-                  "port-name"
-                ],
+                "required": ["id", "instance", "port-name"],
                 "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "instance": {
-                    "type": "string"
-                  },
-                  "port-name": {
-                    "type": "string"
-                  },
-                  "input-restrictions": {
-                    "$ref": "#/input"
-                  }
+                  "id": {"type": "string"},
+                  "instance": {"type": "string"},
+                  "port-name": {"type": "string"},
+                  "input-restrictions": {"$ref": "#/input"}
                 }
               },
-              "flowcontrol": {
-                "$ref": "#/requirement/flowcontrol"
-              },
+              "flowcontrol": {"$ref": "#/requirement/flowcontrol"},
               "co-located": {
                 "type": "boolean",
                 "default": false
               },
-              "other-parameters": {
-                "$ref": "#/configuration/parameters"
-              }
+              "other-parameters": {"$ref": "#/configuration/parameters"}
             }
           }
-        ]
       },
       "function-restrictions": {
         "type": "array",
         "uniqueItems": true,
-        "items": [
-          {
-            "type": "object",
-            "required": [
-              "instance"
-            ],
-            "properties": {
-              "instance": {
-                "type": "string"
-              },
-              "general": {
-                "$ref": "#/general"
-              },
-              "processing": {
-                "$ref": "#/processing"
-              },
-              "requirements": {
-                "$ref": "#/requirements"
-              },
-              "configuration": {
-                "$ref": "#/configuration"
-              },
-              "client-assistant": {
-                "$ref": "#/client-assistant"
-              },
-              "monitoring": {
-                "$ref": "#/monitoring"
+        "items": {
+          "type": "object",
+          "required": ["instance"],
+          "properties": {
+            "instance": {"type": "string"},
+            "general": {"$ref": "#/general"},
+            "processing": {"$ref": "#/processing"},
+            "requirements": {"$ref": "#/requirements"},
+            "configuration": {"$ref": "#/configuration"},
+            "client-assistant": {"$ref": "#/client-assistant"},
+            "failover": {"$ref": "#/failover"},
+            "monitoring": {"$ref": "#/monitoring"},
+            "reporting": {"$ref": "#/reporting"},
+            "notification": {"$ref": "#/notification"},
+            "security": {"$ref": "#/security"},
+            "blacklist": {                
+              "type": "array",
+              "uniqueItems": true,
+              "minItems": 1,
+              "item": {
+                "type": "string",
+                "enum:": ["requirement", "client-assistant", "fail-over", "monitoring", "reporting", "notification", "security"]
               }
             }
           }
-        ]
+        }
       }
     }     
   },
@@ -541,7 +411,7 @@
     "properties": {
       "flowcontrol": {
         "type": "object",
-        "minProperties" : 1,
+        "minProperties": 1,
         "properties": {
           "typical-delay": {
           "type": "integer",
@@ -552,10 +422,6 @@
             "minimum": 0
           },
           "max-delay": {
-            "type": "integer",
-            "minimum": 0
-          },
-          "typical-throughput": {
             "type": "integer",
             "minimum": 0
           },
@@ -575,7 +441,7 @@
       },
       "hardware": {
         "type": "object",
-        "minProperties" : 1,
+        "minProperties": 1,
         "properties": {
           "vcpu": {
             "type": "integer",
@@ -601,7 +467,7 @@
       },
       "security": {
         "type": "object",
-        "minProperties" : 1,
+        "minProperties": 1,
         "properties": {
           "tls": {
             "type": "boolean",
@@ -619,12 +485,8 @@
       },
       "workflow-task": {
         "type": "object",
-        "minProperties" : 1,
+        "minProperties": 1,
         "properties": {
-          "execution-mode": {
-            "type": "string",
-            "default": "streaming"
-          },
           "function-fusible": {
             "type": "boolean",
             "default": false
@@ -632,6 +494,10 @@
           "function-enhancable": {
             "type": "boolean",
             "default": false
+          },
+          "execution-mode": {
+            "type": "string",
+            "default": "streaming"
           }
         }
       },
@@ -643,19 +509,17 @@
             "type": "array",
             "minItems": 1,
             "items": {
-              "name" : {"type": "string"},
-              "value": {"type": "string"}
+              "type": "object",
+              "required": ["name", "value"],
+              "properties": {
+                "name": {"type": "string"},
+                "value": {"type": "string"}
+              }
             }
           },
-          "computational-estimator": {
-            "type": "string"
-          },
-          "memory-estimator": {
-            "type": "string"
-          },
-          "bandwidth-estimator": {
-            "type": "string"
-          }
+          "computational-estimator": {"type": "string"},
+          "memory-estimator": {"type": "string"},
+          "bandwidth-estimator": {"type": "string"}
         }
       }
     }
@@ -663,7 +527,7 @@
   "configuration": { 
     "title": "Configuration Descriptor Schema",
     "type": "object",
-    "required": [ "parameters" ],
+    "required": ["parameters"],
     "properties": {
       "parameters": {
         "type": "array",
@@ -695,12 +559,12 @@
           },
           "oneof": [
             {
-              "if":{
-                "properties": {"datatype": { "const": "boolean" } }
+              "if": {
+                "properties": {"datatype": {"const": "boolean"} }
               },
-              "then":{
+              "then": {
                 "requires": ["values"],
-                "properties":{
+                "properties": {
                   "values": {
                     "type": "array",
                     "minitems": 1,
@@ -720,12 +584,12 @@
               }
             },
             {
-              "if":{
-                "properties": {"datatype": { "const": "integer" } }
+              "if": {
+                "properties": {"datatype": {"const": "integer"} }
               },
-              "then":{
+              "then": {
                 "requires": ["values"],
-                "properties":{
+                "properties": {
                   "values": {
                     "type": "array",
                     "minitems": 1,
@@ -734,12 +598,8 @@
                       "type": "object",
                       "required": ["name", "id", "restrictions"],
                       "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "id": {
-                          "type": "integer"
-                        },
+                        "name": {"type": "string"},
+                        "id": {"type": "integer"},
                         "restrictions": {
                           "type": "object",
                           "properties": {            
@@ -755,12 +615,12 @@
               }   
             },
             {
-              "if":{
-                "properties": {"datatype": { "const": "number" } }
+              "if": {
+                "properties": {"datatype": {"const": "number"} }
               },
               "then": {
                 "requires": ["values"],
-                "properties":{
+                "properties": {
                   "values": {
                     "type": "array",
                     "minitems": 1,
@@ -786,12 +646,12 @@
               }
             },
             {
-              "if":{
-                "properties": {"datatype": { "const": "string" } }
+              "if": {
+                "properties": {"datatype": {"const": "string"} }
               },
-              "then":{
+              "then": {
                 "requires": ["values"],
-                "properties":{
+                "properties": {
                   "values": {
                     "type": "array",
                     "minitems": 1,
@@ -815,13 +675,13 @@
               }
             },
             {
-              "if":{
-                "properties": {"datatype": { "const": "array" } }
+              "if": {
+                "properties": {"datatype": {"const": "array"} }
               },
-              "then":{
+              "then": {
                 "requires": ["schema"],
-                "properties":{
-                  "schema":{"type": "array"}
+                "properties": {
+                  "schema": {"type": "array"}
                 } 
               } 
             }
@@ -830,24 +690,29 @@
       }     
     }
   },
-  "client-assistant": { 
-      "title": "Client-Assistance Descriptor Schema ",
-      "type": "object",
-      "required": [
-        "client-assistance-flag"
-      ],
-      "properties": {
-        "client-assistance-flag": {
-          "type": "boolean",
-          "default": false
-        },
-        "measurement-collection-list": {
-          "type": "object"
-        },
-        "source-assistance-information ": {
-          "type": " object"
-        }
+  "startup-delay": {
+    "title": "Startup-delay Descriptor Schema ",
+    "type": "object",
+    "required": ["startup-delay-value"],
+    "properties": {
+      "startup-delay-value": {
+        "type": "integer",
+        "minimum": 0
       }
+    }
+  },
+  "client-assistant": { 
+    "title": "Client-Assistance Descriptor Schema ",
+    "type": "object",
+    "required": ["client-assistance-flag"],
+    "properties": {
+      "client-assistance-flag": {
+        "type": "boolean",
+        "default": false
+      },
+      "measurement-collection-list": {"type": "object"},
+      "source-assistance-information": {"type": "object"}
+    }
   },
   "failover": { 
     "title": "Failover Descriptor Schema",
@@ -858,7 +723,7 @@
     "properties": {
       "failover-mode": {
         "type": "string",
-        "enum:": ["restart-immediately", "restart-with-delay", "continue-with-last-good-state", "execute-backup-deployment", "exist"]
+        "enum:": ["restart-immediately", "restart-with-delay", "continue-with-last-good-state", "execute-backup-deployment", "exit"]
       },
       "failover-delay": {
         "type": "integer",
@@ -883,7 +748,7 @@
     "type": "array",
     "minItems": 1,
     "uniqueItems": true,
-    "items" : {
+    "items": {
         "properties": {
           "name": {"type": "string"},
           "definition": {"type": "string"},
@@ -896,33 +761,31 @@
   },
   "variables": {
     "title": "Variables Descriptor Schema",
-    "properties" : {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items" : {
-        "required": ["name", "definition", "unit", "var-type"],
-        "properties": {
-          "name": {"type": "string"},
-          "definition": {"type": "string"},
-          "unit": {"type": "string"},
-          "var-type": {
-            "type" : "string",
-            "enum" : ["string", "interger", "float", "boolean", "number"]         
-          },
-          "value": {"type": "string"},
-          "min" :{"type": "integer"},
-          "max" :{"type": "integer"},
-          "url": {
-            "type": "string",
-            "format": "url"
-          },
-          "children": {
-            "type" : "array",
-            "uniqueItems": true,
-            "items" : { "$ref": "#/variables" },
-            "default" : []
-          }
+    "type": "array",
+    "minItems": 1,
+    "uniqueItems": true,
+    "items": {
+      "required": ["name", "definition", "unit", "var-type"],
+      "properties": {
+        "name": {"type": "string"},
+        "definition": {"type": "string"},
+        "unit": {"type": "string"},
+        "var-type": {
+          "type": "string",
+          "enum": ["string", "integer", "float", "boolean", "number"]         
+        },
+        "value": {"type": "string"},
+        "min": {"type": "integer"},
+        "max": {"type": "integer"},
+        "url": {
+          "type": "string",
+          "format": "url"
+        },
+        "children": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/variables"},
+          "default": []
         }
       }
     }
@@ -932,34 +795,30 @@
     "type": "object",
     "minProperties": 1,
     "properties": { 
-      "event": { "$ref": "#/events" },
-      "variable": { "$ref": "#/variables" },
+      "event": {"$ref": "#/events"},
+      "variable": {"$ref": "#/variables"},
       "system-events": {
         "type": "array",
         "minItems": 1,
         "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
+        "items": {"type": "object"}
       },
       "system-variables": {
         "type": "array",
         "minItems": 1,
         "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
+        "items": {"type": "object"}
       }
     }
   },
   "reporting": { 
     "title": "Reporting Descriptor Schema",
     "type": "object",
-    "required": [ "reporting-type", "reporting-interval", "report-start-time", "url", "delivery-method"
+    "required": ["reporting-type", "reporting-interval", "report-start-time", "url", "delivery-method"
     ],
     "properties": {
-      "event": { "$ref": "#/events" },
-      "variable": { "$ref": "#/variables" },
+      "event": {"$ref": "#/events"},
+      "variable": {"$ref": "#/variables"},
       "system-events": {
         "type": "array",
         "minItems": 1,
@@ -976,9 +835,7 @@
           "type": "object"
         }
       },
-      "report-type": {
-        "type": "string"
-      },
+      "report-type": {"type": "string"},
       "reporting-interval": {
         "type": "integer",
         "minimum": 0
@@ -1000,35 +857,27 @@
   "notification": { 
     "title": "Notifications Descriptor Schema",
     "type": "object",
-    "required": [
-      "notification-time", "severity-level", "notification-type","urls"
-    ],
+    "required": ["notification-time", "severity-level", "notification-type","urls"],
     "properties": {
-      "event": { "$ref": "#/events" },
-      "variable": { "$ref": "#/variables" },
+      "event": {"$ref": "#/events"},
+      "variable": {"$ref": "#/variables"},
       "system-events": {
         "type": "array",
         "minItems": 1,
         "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
+        "items": {"type": "object"}
       },
       "system-variables": {
         "type": "array",
         "minItems": 1,
         "uniqueItems": true,
-        "items": {
-          "type": "object"
-        }
+        "items": {"type": "object"}
       },
       "notification-time": {
         "type": "string",
         "format": "date-time"
       },
-      "severity-level": {
-        "type": "string"
-      },
+      "severity-level": {"type": "string"},
       "notification-type": {
         "type": "array",
         "minItems": 1,
@@ -1057,40 +906,28 @@
   "assertion": {
     "title": "Assertion Descriptor Schema",
     "type": "object",
-    "required": [
-        "min-priority", "min-priority-action", "assertion"
-    ],
+    "required": ["min-priority", "min-priority-action", "assertion"],
     "properties": {
-      "min-priority":{
+      "min-priority": {
         "type": "integer",
         "minimum": 0
       },
-      "min-priority-action":{
-        "type": "string"
-      }, 
+      "min-priority-action": {"type": "string"}, 
       "support-verification": {
         "type": "boolean",
         "default": false
       },
-      "verification-acknowledgement": {
-        "type": "string"
-      },
-      "certificate": {
-        "type": "string"
-      },
+      "verification-acknowledgement": {"type": "string"},
+      "certificate": {"type": "string"},
       "assertion": {
         "type": "array",
         "minItems": 1,
         "uniqueItems": true,
         "items": {
           "type": "object",
-          "required": [
-            "name", "value-predicate"
-          ],
+          "required": ["name", "value-predicate"],
           "properties": {
-            "name" : {
-              "type": "string"
-              },
+            "name": {"type": "string"},
             "value-predicate": {
               "type": "object",
               "required": [
@@ -1101,16 +938,12 @@
                   "type": "string",
                   "enum": ["quality", "computational", "input", "output"]
                 },
-                "check-value": {
-                  "type": "object"
-                },
+                "check-value": {"type": "object"},
                 "aggregation": {
                   "type": "string",
                   "enum": ["sum", "min", "max", "avg"]
                 },
-                "offset": {
-                  "type": "string"
-                },
+                "offset": {"type": "string"},
                 "priority": {
                   "type": "integer",
                   "minimum": 0
@@ -1123,7 +956,7 @@
                   "type": "array",
                   "minItems": 1,
                   "uniqueItems": true,
-                  "items": { "type": "string"}
+                  "items": {"type": "string"}
                 }
               }
             }
@@ -1145,9 +978,7 @@
         "type": "integer",
         "minimum": 0 
       }, 
-      "task-id": {
-        "type": "string"
-      }
+      "task-id": {"type": "string"}
     }    
   },    
   "acknowledge": {
@@ -1201,12 +1032,8 @@
               "type": "string",
               "format": "url"
             },
-            "name": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            }
+            "name": {"type": "string"},
+            "description": {"type": "string"}
           }
         }
       }
@@ -1247,10 +1074,14 @@
     "type": "object",
     "minProperties": 1,
     "properties": {
-      "direct": {
+      "step-mode": {
         "type": "string",
         "enum":["stream", "stateful", "stateless"],
         "default": "stream"
+      },
+      "variable-duration": {
+        "type": "boolean",
+        "default": "false"
       },
       "segment-duration": {
         "type": "integer",
@@ -1261,20 +1092,5 @@
         "minimum": 0
       }
     }
-  },
-  "scope": {
-    "title": "Scope Descriptor Schema",
-    "type": "object",
-    "required": ["blacklist"],
-    "properties": {
-      "blacklist": {
-        "type": "array",
-        "minItems": 1,
-        "uniqueItems": true,
-        "items": {
-          "type": "string"
-        }
-      }
-    }  
   }
 }
