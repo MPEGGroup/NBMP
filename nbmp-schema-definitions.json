@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft/2019-09/schema",
   "$id": "https://github.com/MPEGGroup/NBMP/blob/master/nbmp-schema-definitions.json",
   "$vocabularies": ["https://json-schema.org/draft/2019-09/vocab/validation", "https://json-schema.org/draft/2019-09/vocab/format"],
-  "$comment": "This schema defines the definitions part of ISO/IEC 23090-8 Network Based Media Processing (NBMP), 2nd edition (https://www.iso.org/standard/77839.html)",
-  "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-definitions, 2nd edition",
+  "$comment": "This schema defines the definitions part of ISO/IEC 23090-8-2022 Network Based Media Processing (NBMP), 2nd edition (https://www.iso.org/standard/77839.html)",
+  "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-definitions, 2nd Edition",
   "scheme": { 
     "title": "Scheme Descriptor Schema",
     "type": "object",
@@ -38,6 +38,39 @@
         "format": "date-time"
       },
       "priority": {"type": "number"},
+      "location": {"type": "string"},
+      "task-group": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "object",
+          "required": ["group-id", "task-id"],
+          "properties": {
+            "group-id": {"type": "string"},
+            "task-id": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {"type": "string"}
+            },
+            "group-type": {
+              "type": "string",
+              "enum": ["distance", "sync", "virtual"],
+              "default": "distance"
+            },
+            "group-mode": {
+              "type": "string",
+              "enum": ["synchronous", "asynchronous"],
+              "default": "synchronous"
+            },
+            "net-zero": {
+              "type": "boolean",
+              "default": "false"
+            }
+          }
+        }
+      },
       "input-ports": {
         "type": "array",
         "minItems": 1,
@@ -131,6 +164,11 @@
             "image-format": {"$ref": "#/configuration/parameters"},
             "codec-type": {"type": "string"},
             "protocol": {"type": "string"},
+            "mode": {
+              "type": "string",
+              "enum": ["push", "pull"],
+              "default": "push"
+            },
             "throughput": {
               "type": "integer",
               "minimum": 0
@@ -139,13 +177,20 @@
               "type": "integer",
               "minimum": 0
             },
+            "availability-duration": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "timeout": {
+              "type": "integer",
+              "minimum": 1
+            },
             "caching-server-url": {
               "type": "string",
               "format": "uri"  
             },
-            "timeout": {
-              "type": "integer",
-              "minimum": 0
+            "completion-timeout": {
+              "type": "integer"
             }
           }
         }
@@ -169,6 +214,11 @@
             "mime-type": {"type": "string"},
             "codec-type": {"type": "string"},
             "protocol": {"type": "string"},
+            "mode": {
+              "type": "string",
+              "enum": ["push", "pull"],
+              "default": "push"
+            },
             "max-size": {
               "type": "integer",
               "minimum": 0
@@ -177,6 +227,14 @@
               "type": "integer",
               "minimum": 0
             },
+            "availability-duration": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "timeout": {
+              "type": "integer",
+              "minimum": 1
+            },
             "caching-server-url": {
               "type": "string"    
             },
@@ -184,9 +242,8 @@
               "type": "string",
               "format": "uri" 
             },
-            "timeout": {
-              "type": "integer",
-              "minimum": 0
+            "completion-timeout": {
+              "type": "integer"
             }
           }
         } 
@@ -223,6 +280,11 @@
             "image-format": {"$ref": "#/configuration/parameters"},
             "codec-type": {"type": "string"},
             "protocol": {"type": "string"},
+            "mode": {
+              "type": "string",
+              "enum": ["push", "pull"],
+              "default": "push"
+            },
             "throughput": {
               "type": "integer",
               "minimum": 0
@@ -230,6 +292,14 @@
             "buffersize": {
               "type": "integer",
               "minimum": 0
+            },
+            "availability-duration": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "timeout": {
+              "type": "integer",
+              "minimum": 1
             },
             "caching-server-url": {
               "type": "string",
@@ -257,6 +327,11 @@
             "mime-type": {"type": "string"},
             "codec-type": {"type": "string"},
             "protocol": {"type": "string"},
+            "mode": {
+              "type": "string",
+              "enum": ["push", "pull"],
+              "default": "push"
+            },
             "max-size": {
               "type": "integer",
               "minimum": 0
@@ -264,6 +339,14 @@
             "min-interval": {
               "type": "integer",
               "minimum": 0
+            },
+            "availability-duration": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "timeout": {
+              "type": "integer",
+              "minimum": 1
             },
             "caching-server-url": {"type": "string"},
             "scheme-uri": {
@@ -342,8 +425,9 @@
         "items":
           {
             "type": "object",
-            "required": ["from", "to"],
+            "required": ["connection-id", "from", "to"],
             "properties": {
+              "connection-id": {"type": "string"},
               "from": {
                 "type": "object",
                 "required": ["id", "instance", "port-name"],
@@ -369,6 +453,10 @@
                 "type": "boolean",
                 "default": false
               },
+              "breakable": { 
+                "type": "boolean",
+                "default": true
+              },
               "other-parameters": {"$ref": "#/configuration/parameters"}
             }
           }
@@ -390,6 +478,7 @@
             "monitoring": {"$ref": "#/monitoring"},
             "reporting": {"$ref": "#/reporting"},
             "notification": {"$ref": "#/notification"},
+            "step": {"$ref": "#/step"},
             "security": {"$ref": "#/security"},
             "blacklist": {                
               "type": "array",
@@ -397,7 +486,7 @@
               "minItems": 1,
               "item": {
                 "type": "string",
-                "enum:": ["requirement", "client-assistant", "fail-over", "monitoring", "reporting", "notification", "security"]
+                "enum": ["requirement", "client-assistant", "fail-over", "monitoring", "reporting", "notification", "security"]
               }
             }
           }
@@ -497,7 +586,49 @@
           },
           "execution-mode": {
             "type": "string",
+            "enum": ["streaming", "step", "hybrid"],
             "default": "streaming"
+          },
+          "proximity":{
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["other-task-id", "distance"],
+              "properties": {
+                "other-task-id": {"type": "string"},
+                "distance": {
+                  "type": "integer",
+                  "minimum": -1
+                }
+              }
+            }
+          },
+          "proximity-equation":{
+            "type": "object",
+            "required": ["distance-parameters", "distance-equation"],
+            "properties": {
+              "distance-parameters": {"$ref": "#/variables"},
+              "distance-equation": {"type": "string"}
+            }
+          },
+          "split-efficiency":{
+            "type": "object",
+            "properties": {
+              "split-norm": {
+                "type": "string",
+                "enum": ["pnorm", "custom"],
+                "default": "pnorm"
+              },
+              "split-equation": {
+                "type": "string",
+                "default": "2"
+              },
+              "split-result": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
           }
         }
       },
@@ -723,7 +854,7 @@
     "properties": {
       "failover-mode": {
         "type": "string",
-        "enum:": ["restart-immediately", "restart-with-delay", "continue-with-last-good-state", "execute-backup-deployment", "exit"]
+        "enum": ["restart-immediately", "restart-with-delay", "continue-with-last-good-state", "execute-backup-deployment", "exit"]
       },
       "failover-delay": {
         "type": "integer",
@@ -1087,9 +1218,259 @@
         "type": "integer",
         "minimum": 0
       },
+      "segment-location": {
+        "type": "boolean",
+        "default": false
+      },
+      "segment-sequence": {
+        "type": "boolean",
+        "default": false
+      },
+      "segment-metadata-supported-formats": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum":["nbmp-location-bytestream-2022", "nbmp-sequence-bytestream-2022", "nbmp-location-json-2022", "nbmp-sequence-json-2022"]
+        }
+      },
       "operating-units": {
         "type": "integer",
         "minimum": 0
+      },
+      "temporal-overlap": {
+        "type": "integer",
+        "minimum": 0,
+        "default": 0
+      },
+      "number-of-dimensions": {
+        "type": "integer",
+        "minimum": 0,
+        "default": 0
+      },
+      "higher-dimension-segment-divisors": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "higher-dimensions-descriptions": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "enum":["width", "height", "RGB", "depth", "YUV", "V-PCC"]
+        }
+      },
+      "higher-dimensions-segment-order": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "higher-dimension-overlap": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "higher-dimension-operation-units": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      }
+    }
+  },
+  "capabilities": {
+    "title": "Capabilities Descriptor Schema",
+    "type": "object",
+    "minProperties": 1,
+    "properties": {
+      "resource-availability": {
+        "type": "array",
+        "minItems": 1,
+        "item": {
+          "type": "object",
+          "minProperties": 1,
+          "properties": {
+            "key": {
+                "type": "string",
+                "enum": ["vcpu", "vgpu", "ram", "disk", "power"]
+            },
+            "absolute-value": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "availability": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        }
+      },
+      "placement": {"$ref": "#/requirement/hardware/placement"},
+      "location": {"type": "string"},
+      "repository": {"$ref": "#/repository"},
+      "functions": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"$ref": "nbmp-function-schema.json"}
+      },
+      "connectivity":{
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "item": {
+            "type": "object",
+            "required": ["id"],
+            "properties": {
+              "id": {"type": "string"},
+              "url": {"type": "string"},
+              "forward": {
+                "type": "object",
+                "properties":{
+                  "min-delay": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "max-throughput": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "averaging-window": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "return": {
+                "type": "object",
+                "properties":{
+                  "min-delay": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "max-throughput": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "averaging-window": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+        }
+      },
+      "persistency-capabilities": {
+        "type": "boolean",
+        "default": "true"
+      },
+      "secure-persistency": {
+        "type": "boolean",
+        "default": "false"
+      },
+      "persistence-storage-url": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "item": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  },
+  "scale": {
+    "title": "Scale Descriptor Schema",
+    "type": "object",
+    "required": ["id", "status"],
+    "properties": {
+      "id": {"type": "string"},
+      "description": {"type": "string"},
+      "scaling-type": {
+        "type": "string",
+        "enum": ["MPE", "split-merge"],
+        "default": "MPE"
+      },
+      "scaling-factor": {
+        "type": "integer",
+        "minimum": 1,
+        "default": 1
+      },
+      "status": {
+        "type": "string",
+        "enum": ["capabilities", "consider", "request", "passed", "failed"],
+        "default": "failed"
+      },
+      "target-id": {"type": "string"}
+    }
+  },
+  "schedule": {
+    "title": "Schedule Descriptor Schema",
+    "type": "object",
+    "required": ["id", "status"],
+    "properties": {
+      "id": {"type": "string"},
+      "description": {"type": "string"},
+      "schedule-type": {
+        "type": "string",
+        "enum": ["duration", "segment"],
+        "default": "duration"
+      },
+      "schedule-table": {
+        "type": "array",
+        "minitems": 1,
+        "item": {
+          "type": "object",
+          "required": ["taskortaskgroup-id"],
+          "properties": {
+            "task-id": {"type": "string"},
+            "start-time": {
+              "type": "string",
+              "default": ""
+            },
+            "duration": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 1
+            },
+            "timescale": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 1
+            }
+          }
+        }
+      },
+      "number-of-segments": {
+        "type": "integer",
+        "minimum": 1,
+        "default": 1
+      },
+      "loop": {
+        "type": "boolean",
+        "default": "false"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["capabilities", "consider", "request", "passed", "failed"],
+        "default": "failed"
       }
     }
   }
