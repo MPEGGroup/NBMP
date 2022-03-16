@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft/2019-09/schema",
   "$id": "https://github.com/MPEGGroup/NBMP/blob/master/nbmp-schema-definitions.json",
   "$vocabularies": ["https://json-schema.org/draft/2019-09/vocab/validation", "https://json-schema.org/draft/2019-09/vocab/format"],
-  "$comment": "This schema defines the definitions part of ISO/IEC 23090-8-2020 Network Based Media Processing (NBMP) (https://www.iso.org/standard/77839.html)",
-  "title": "ISO/IEC 23090-8:2020 Network Based Media Processing schema-definitions",
+  "$comment": "This schema defines the definitions part of ISO/IEC 23090-8 Network Based Media Processing (NBMP), 2nd edition (https://www.iso.org/standard/77839.html)",
+  "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-definitions, 2nd edition",
   "scheme": { 
     "title": "Scheme Descriptor Schema",
     "type": "object",

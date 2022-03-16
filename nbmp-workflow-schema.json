@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft/2019-09/schema",
-    "title": "ISO/IEC 23090-8:2020 Network Based Media Processing schema-Workflow Description",
+    "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-Workflow Description, 2nd edition",
     "type": "object",
     "required": [ 
         "general", "input", "output", "processing", "requirement"
