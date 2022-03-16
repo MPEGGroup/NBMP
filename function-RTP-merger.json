@@ -2,7 +2,7 @@
   "configuration":  {
     "parameters": [
       {
-        "name": "merge-number",
+        "name": "input-dimension",
         "id": 1,
         "datatype": "integer",
         "values": [
@@ -14,8 +14,8 @@
         ]
       },
       {
-        "name": "time-scale",
-        "id": 2,
+        "name": "merge-number",
+        "id": 12,
         "datatype": "integer",
         "values": [
           {
@@ -26,48 +26,44 @@
         ]
       },
       {
-        "name": "variable-duration",
-        "id": 3,
+        "name": "scale",
+        "id": 3,      
+        "datatype": "array",
+        "schema": {
+          "type": "array",
+          "item": {
+              "type": "integer",
+              "min-value":1,
+              "default": 1
+          }
+        }
+      },
+      {
+        "name": "variable-length",
+        "id": 4,
         "datatype": "boolean"
       },
       {
-        "name": "segment-duration",
-        "id": 4,
-        "datatype": "integer",
-        "values": [
-          {
-            "name": "nonzero",
-            "id": 41,
-            "restrictions": {"min-value": 1}
+        "name": "segment-length",
+        "id": 5,      
+        "datatype": "array",
+        "schema": {
+          "type": "array",
+          "item": {
+              "type": "integer",
+              "min-value":1,
+              "default": 1
           }
-        ]
+        }
+      },
+      {
+        "name": "segment-metadata",
+        "id": 6,
+        "datatype": "boolean"
+
       },
       {
         "name": "in-buffer-size",
-        "id": 5,
-        "datatype": "integer",
-        "values": [
-          {
-            "name": "nonzero",
-            "id": 51,
-            "restrictions": {"min-value": 1}
-          }
-        ]
-      },
-      {
-        "name": "out-buffer-size",
-        "id": 6,
-        "datatype": "integer",
-        "values": [
-          {
-            "name": "nonzero",
-            "id": 61,
-            "restrictions": {"min-value": 1}
-          }
-        ]
-      },
-      {
-        "name": "max-segment-size",
         "id": 7,
         "datatype": "integer",
         "values": [
@@ -79,23 +75,47 @@
         ]
       },
       {
-        "name": "repeat-header",
+        "name": "out-buffer-size",
         "id": 8,
-        "datatype": "boolean"
-      },
-      {
-        "name": "non-segment-op",
-        "id": 9,
-        "datatype": "boolean"
-      },
-      {
-        "name": "buffer-fullness-inc-event",
-        "id": 10,
         "datatype": "integer",
         "values": [
           {
             "name": "nonzero",
-            "id": 101,
+            "id": 81,
+            "restrictions": {"min-value": 1}
+          }
+        ]
+      },
+      {
+        "name": "max-segment-size",
+        "id": 9,
+        "datatype": "integer",
+        "values": [
+          {
+            "name": "nonzero",
+            "id": 91,
+            "restrictions": {"min-value": 1}
+          }
+        ]
+      },
+      {
+        "name": "repeat-header",
+        "id": 10,
+        "datatype": "boolean"
+      },
+      {
+        "name": "non-segment-op",
+        "id": 11,
+        "datatype": "boolean"
+      },
+      {
+        "name": "buffer-fullness-inc-event",
+        "id": 12,
+        "datatype": "integer",
+        "values": [
+          {
+            "name": "nonzero",
+            "id": 121,
             "restrictions": {
               "min-value": 1,
               "max-value": 100

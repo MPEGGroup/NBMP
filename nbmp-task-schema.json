@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft/2019-09/schema",
-    "title": "ISO/IEC 23090-8:2020 Network Based Media Processing schema-Task Description",
+    "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-Task Description, 2nd edition",
     "type": "object",
     "required": [ 
       "request", "general", "input", "output", "processing", "requirements"
@@ -21,7 +21,9 @@
         "assertion": {"$ref": "nbmp-schema-definitions.json#/assertion" },
         "reporting": {"$ref": "nbmp-schema-definitions.json#/reporting" },
         "notification": {"$ref": "nbmp-schema-definitions.json#/notification" },
+        "acknowledge": {"$ref": "nbmp-schema-definitions.json#/acknowledge" },
         "security": {"$ref": "nbmp-schema-definitions.json#/security" },
-        "acknowledge": {"$ref": "nbmp-schema-definitions.json#/acknowledge" }
+        "scale": {"$ref": "nbmp-schema-definitions.json#/scale" },
+        "schedule": {"$ref": "nbmp-schema-definitions.json#/schedule" }
     }
 }
