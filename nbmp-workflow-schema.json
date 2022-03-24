@@ -1,26 +1,26 @@
 {
-    "$schema": "http://json-schema.org/draft/2019-09/schema",
-    "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-Workflow Description, 2nd edition",
-    "type": "object",
-    "required": [ 
-        "general", "input", "output", "processing", "requirement"
-    ],
-    "properties": {
-        "scheme": {"$ref": "nbmp-schema-definitions.json#/scheme" },
-        "general": {"$ref": "nbmp-schema-definitions.json#/general" },
-        "repository": {"$ref": "nbmp-schema-definitions.json#/repository" },
-        "input": {"$ref": "nbmp-schema-definitions.json#/input" },
-        "output": {"$ref": "nbmp-schema-definitions.json#/output" },
-        "processing": {"$ref": "nbmp-schema-definitions.json#/processing" },
-        "requirement": {"$ref": "nbmp-schema-definitions.json#/requirement" },
-        "step": {"$ref": "nbmp-schema-definitions.json#/step" },
-        "client-assistant": {"$ref": "nbmp-schema-definitions.json#/client-assistant" },
-        "failover": {"$ref": "nbmp-schema-definitions.json#/failover" },
-        "monitoring": {"$ref": "nbmp-schema-definitions.json#/monitoring" },
-        "assertion": {"$ref": "nbmp-schema-definitions.json#/assertion" },
-        "reporting": {"$ref": "nbmp-schema-definitions.json#/reporting" },
-        "notification": {"$ref": "nbmp-schema-definitions.json#/notification" },
-        "acknowledge": {"$ref": "nbmp-schema-definitions.json#/acknowledge" },
-        "security": {"$ref": "nbmp-schema-definitions.json#/security" }
-    }
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-Workflow Description, 2nd edition",
+  "type": "object",
+  "required": [ 
+    "general", "input", "output", "processing", "requirement"
+  ],
+  "properties": {
+    "scheme": {"$ref": "nbmp-schema-definitions.json#/scheme"},
+    "general": {"$ref": "nbmp-schema-definitions.json#/general"},
+    "repository": {"$ref": "nbmp-schema-definitions.json#/repository"},
+    "input": {"$ref": "nbmp-schema-definitions.json#/input"},
+    "output": {"$ref": "nbmp-schema-definitions.json#/output"},
+    "processing": {"$ref": "nbmp-schema-definitions.json#/processing"},
+    "requirement": {"$ref": "nbmp-schema-definitions.json#/requirement"},
+    "step": {"$ref": "nbmp-schema-definitions.json#/step"},
+    "client-assistant": {"$ref": "nbmp-schema-definitions.json#/client-assistant"},
+    "failover": {"$ref": "nbmp-schema-definitions.json#/failover"},
+    "monitoring": {"$ref": "nbmp-schema-definitions.json#/monitoring"},
+    "assertion": {"$ref": "nbmp-schema-definitions.json#/assertion"},
+    "reporting": {"$ref": "nbmp-schema-definitions.json#/reporting"},
+    "notification": {"$ref": "nbmp-schema-definitions.json#/notification"},
+    "acknowledge": {"$ref": "nbmp-schema-definitions.json#/acknowledge"},
+    "security": {"$ref": "nbmp-schema-definitions.json#/security"}
+  }
 }

@@ -1,23 +1,21 @@
 {
-    "$schema": "http://json-schema.org/draft/2019-09/schema",
-    "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-Function Description, 2nd edition ",
-    "type": "object",
-    "required": [ 
-        "general", "input", "output" 
-    ],
-    "properties": {
-        "scheme": {"$ref": "nbmp-schema-definitions.json#/scheme" },
-        "general": {"$ref": "nbmp-schema-definitions.json#/general" },
-        "input": {"$ref": "nbmp-schema-definitions.json#/input" },
-        "output": {"$ref": "nbmp-schema-definitions.json#/output" },
-        "processing": {"$ref": "nbmp-schema-definitions.json#/processing" },
-        "requirement": {"$ref": "nbmp-schema-definitions.json#/requirement" },
-        "configuration": {"$ref": "nbmp-schema-definitions.json#/configuration" },
-        "step": {"$ref": "nbmp-schema-definitions.json#/step" },
-        "client-assistant": {"$ref": "nbmp-schema-definitions.json#/client-assistant" },
-        "assertion": {"$ref": "nbmp-schema-definitions.json#/assertion" },
-        "variables": {"$ref": "nbmp-schema-definitions.json#/variables" },
-        "events": {"$ref": "nbmp-schema-definitions.json#/events" },
-        "security": {"$ref": "nbmp-schema-definitions.json#/security" }
-    }
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-Function Description, 2nd edition ",
+  "type": "object",
+  "required": ["general", "input", "output"],
+  "properties": {
+    "scheme": {"$ref": "nbmp-schema-definitions.json#/scheme"},
+    "general": {"$ref": "nbmp-schema-definitions.json#/general"},
+    "input": {"$ref": "nbmp-schema-definitions.json#/input"},
+    "output": {"$ref": "nbmp-schema-definitions.json#/output"},
+    "processing": {"$ref": "nbmp-schema-definitions.json#/processing"},
+    "requirement": {"$ref": "nbmp-schema-definitions.json#/requirement"},
+    "configuration": {"$ref": "nbmp-schema-definitions.json#/configuration"},
+    "step": {"$ref": "nbmp-schema-definitions.json#/step"},
+    "client-assistant": {"$ref": "nbmp-schema-definitions.json#/client-assistant"},
+    "assertion": {"$ref": "nbmp-schema-definitions.json#/assertion"},
+    "variables": {"$ref": "nbmp-schema-definitions.json#/variables"},
+    "events": {"$ref": "nbmp-schema-definitions.json#/events"},
+    "security": {"$ref": "nbmp-schema-definitions.json#/security"}
+  }
 }
