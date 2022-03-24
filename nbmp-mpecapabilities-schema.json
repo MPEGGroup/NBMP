@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "title": "ISO/IEC 23090-8:2022 Network Based Media Processing schema-MPE Capabilities Description, 2nd edition",
+  "type": "object",
+  "required": ["general"],
+  "properties": {
+    "scheme": {"$ref": "nbmp-schema-definitions.json#/scheme"},
+    "general": {"$ref": "nbmp-schema-definitions.json#/general" },
+    "capabilities": {"$ref": "nbmp-schema-definitions.json#/capabilities"},
+    "variables": {"$ref": "nbmp-schema-definitions.json#/variables"},
+    "events": {"$ref": "nbmp-schema-definitions.json#/events"},
+    "monitoring": {"$ref": "nbmp-schema-definitions.json#/monitoring"},
+    "reporting": {"$ref": "nbmp-schema-definitions.json#/reporting"},
+    "notification": {"$ref": "nbmp-schema-definitions.json#/notification"}
+  }
+}
