@@ -12,4 +12,4 @@ This repository consist of the following files:
 - *example-parameter-representation*  Configuration parameters example of ISO/IEC 23090-8, subclause 9.
 - *nbmp-segment-location-metadata-schema.json* Segment location metadata JSON schema
 - *nbmp-segment-sequence-metadata-schema.json*  Segment sequence metadata JSON schema: ‘’
-- *fuction-RTP-*.json*   Function Reference Template parameters
+- *function-RTP-*.json*   Function Reference Template parameters
