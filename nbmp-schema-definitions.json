@@ -678,7 +678,7 @@
             "conditions": {
               "type": "array",
               "uniqueItems": true,
-              "description": "List of ids that shall not exist for this parameter to become valid",
+              "description": "List of ids that shall exist for this parameter to become valid",
               "items": {"type": "integer"}
             },
             "exclusions": {

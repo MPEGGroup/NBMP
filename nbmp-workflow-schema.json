@@ -21,6 +21,8 @@
     "reporting": {"$ref": "nbmp-schema-definitions.json#/reporting"},
     "notification": {"$ref": "nbmp-schema-definitions.json#/notification"},
     "acknowledge": {"$ref": "nbmp-schema-definitions.json#/acknowledge"},
-    "security": {"$ref": "nbmp-schema-definitions.json#/security"}
+    "security": {"$ref": "nbmp-schema-definitions.json#/security"},
+    "scale": {"$ref": "nbmp-schema-definitions.json#/scale"},
+    "schedule": {"$ref": "nbmp-schema-definitions.json#/schedule"}
   }
 }
