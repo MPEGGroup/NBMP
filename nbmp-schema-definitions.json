@@ -82,7 +82,7 @@
             "port-name": {"type": "string"},
             "bind": {
               "type": "object",
-              "required": ["stream-id", "name"],
+              "required": ["name"],
               "properties": {
                 "stream-id": {"type": "string"},
                 "name": {"type": "string"},
@@ -108,7 +108,7 @@
             "port-name": {"type": "string"},
             "bind": {
               "type": "object",
-              "required": ["stream-id", "name"],
+              "required": ["name"],
               "properties": {
                 "stream-id": {"type": "string"},
                 "name": {"type": "string"},
