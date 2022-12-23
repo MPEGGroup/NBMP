@@ -37,7 +37,10 @@
         "type": "string",
         "format": "date-time"
       },
-      "priority": {"type": "number"},
+      "priority": {
+        "type": "integer",
+        "minimum": 0
+      },
       "location": {"type": "string"},
       "task-group": {
         "type": "array",
