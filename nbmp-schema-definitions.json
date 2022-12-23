@@ -670,7 +670,7 @@
           "properties": {
             "name": {"type": "string"},
             "id": {"type": "integer"},
-            "discription": {"type": "string"},
+            "description": {"type": "string"},
             "datatype": {
               "type": "string",
               "enum": ["boolean", "integer", "number", "string", "array"]
